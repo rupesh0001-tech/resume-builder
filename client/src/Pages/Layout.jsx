@@ -1,11 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Navbar from '../components/Navbar/Navbar'
 
 const Layout = () => {
   return (
-    <div>
+    <div className=' max-h-screen  '>
+      <Navbar />
       <Outlet />
-      <h1> Layout page </h1>
+      
     </div>
   )
 }
