@@ -16,17 +16,26 @@ const Dashboard = () => {
   let [hoverOnHistory, setHoverOnHistory] = useState(false);
   let [createResume, setCreateResume] = useState(false);
   let [uploadResume, setUploadResume] = useState(false);
-  let [resumeId, setResumeId] = useState('')
+  let [resumeId, setResumeId] = useState('');
+  let [formTitle, setFormTitle] = useState('');
+
+
+  const chnageFormtitle = (e) => {
+    setFormTitle(e.target.value)
+  }
+
+
 
 
   const addData = async () => {
     setResumedata(dummyResumeData);
   }
 
-  const createNewResume = async  () => {
-    setResumeId('resume123')
-    useNavigate(`/app/builder/${resumeId}`)
-  }
+  const createNewResume = async () => {
+  const newId = 'resume123';
+  setResumeId(newId);
+  navigate(`/app/builder/${newId}`);
+};
 
   const navigate = useNavigate();
 
@@ -74,8 +83,8 @@ const Dashboard = () => {
                 {
                   hoverOnHistory === idx && (
                     <div className="flex gap-2 absolute top-3 right-4 ">
-                      <i class="fa-solid fa-trash text-sm text-white "></i>
-                      <i class="fa-solid fa-pen text-sm text-white "></i>
+                      <i className="fa-solid fa-trash text-sm text-white "></i>
+                      <i className="fa-solid fa-pen text-sm text-white "></i>
 
                     </div>
                   )
@@ -89,6 +98,7 @@ const Dashboard = () => {
 
         {
           createResume && (
+            //  form of Create Resume 
             <form
             onClick ={() => {
               setCreateResume(false)
@@ -103,13 +113,20 @@ const Dashboard = () => {
             }  className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
               <div onClick={ e => {
                 e.stopPropagation();
-              }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-50 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  ">
+              }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
+                <h1 className='text-xl font-bold '>Create a Resume </h1>
                 <i onClick={() => {setCreateResume(false);} } className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
                 <label htmlFor="tile">Title : </label>
-                <input className='h-8 bg-white px-4 border-black  border-1 outline-none  ' type="text" name="" id="title" />
+                <input className='h-8 bg-white px-4 border-black  border-1 outline-none  ' 
+                type="text" name="" 
+                id="title" 
+                value={formTitle}
+                onChange={chnageFormtitle }  
+                 />
                 <button onClick={() => {
+                  setFormTitle('');
                   
-                }} className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+                }}  className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
                   Create Resume
                 </button>
               </div>
