@@ -89,14 +89,19 @@ const Dashboard = () => {
 
         {
           createResume && (
-            <form onSubmit={(e) => {
+            <form
+            onClick ={() => {
+              setCreateResume(false)
+            }}
+             onSubmit={(e) => {
               createNewResume();
+              e.preventDefault();
               
             }
-          
             
-            } action="" className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
-              <div onClick={e => {
+            
+            }  className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
+              <div onClick={ e => {
                 e.stopPropagation();
               }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-50 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  ">
                 <i onClick={() => {setCreateResume(false);} } className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
