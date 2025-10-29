@@ -16,6 +16,7 @@ const Dashboard = () => {
   let [hoverOnHistory, setHoverOnHistory] = useState(false);
   let [createResume, setCreateResume] = useState(false);
   let [uploadResume, setUploadResume] = useState(false);
+  let [editResume, setEditResume] = useState(false);
   let [resumeId, setResumeId] = useState('');
   let [formTitle, setFormTitle] = useState('');
   let [resume, setResume] = useState(null);
@@ -34,17 +35,22 @@ const Dashboard = () => {
     setResume(e.target.files[0]); // store the first selected file
   };
 
+
   const createNewResume = async () => {
-  const newId = 'resume123';
-  setResumeId(newId);
-  navigate(`/app/builder/${newId}`);
-};
+    const newId = 'resume123';
+    setResumeId(newId);
+    navigate(`/app/builder/${newId}`);
+  };
 
   const createAResume = async () => {
     const newId = 'resume123';
     setResumeId(newId);
     navigate(`/app/builder/${newId}`);
   }
+
+  const deleteResume = (id) => {
+    setResumedata((prevData) => prevData.filter(resume => resume._id !== id));
+  };
 
   const navigate = useNavigate();
 
@@ -79,11 +85,16 @@ const Dashboard = () => {
         <div className="flex h-20 gap-3  ">
           {resumeData.map((resume, idx) => {
             return (
-              <button key={idx} onClick={ () => navigate(`builder/${resume._id}`)} className=' cursor-pointer relative '
+              <button key={idx} onClick={(e) => {
+                navigate(`builder/${resume._id}`
+
+
+                )
+              }} className=' cursor-pointer relative '
                 onMouseEnter={() => setHoverOnHistory(idx)}
                 onMouseLeave={() => setHoverOnHistory(null)}
               >
-                <div className='h-46 w-38 px-5 py-4 shadow-xl rounded-4xl flex flex-col justify-center items-center hover:shadow-gray-500 duration-200 ease-in-out gap-4  ' style={{ background: colors[idx % colors.length] }} >
+                <div onClick={e => e.stopPropagation()} className='h-46 w-38 px-5 py-4 shadow-xl rounded-4xl flex flex-col justify-center items-center hover:shadow-gray-500 duration-200 ease-in-out gap-4  ' style={{ background: colors[idx % colors.length] }} >
                   <i className="fa-solid fa-user-tie text-white text-5xl"> </i>
                   <h1 className=' text-sm text-amber-200 text-center'>  {resume.personal_info.full_name}'s <span className=' text-amber-50'>Resume </span>   </h1>
                   <p className=' text-[8px] text-white '>  {resume.updatedAt.slice(0, 10)}</p>
@@ -92,8 +103,22 @@ const Dashboard = () => {
                 {
                   hoverOnHistory === idx && (
                     <div className="flex gap-2 absolute top-3 right-4 ">
-                      <i className="fa-solid fa-trash text-sm text-white "></i>
-                      <i className="fa-solid fa-pen text-sm text-white "></i>
+                      <i
+                        onClick={(e) => {
+                          e.stopPropagation(); // prevent card navigation
+                          if (window.confirm("Are you sure you want to delete this resume?")) {
+                            deleteResume(resume._id);
+                          }
+                        }}
+                        className="fa-solid fa-trash text-sm text-white cursor-pointer hover:text-red-400 transition-all"
+                      ></i>
+
+                      <i onClick={(e) => {
+                        e.stopPropagation(); // prevent the parent card click
+                        setResumeId(resume._id);
+                        setFormTitle(resume.title) // store the current card’s resume id
+                        setEditResume(true); // open the edit modal
+                      }} className="fa-solid fa-pen text-sm text-white "></i>
 
                     </div>
                   )
@@ -103,39 +128,39 @@ const Dashboard = () => {
           })}
         </div>
 
-        
+
 
         {
           createResume && (
             //  form of Create Resume 
             <form
-            onClick ={() => {
-              setCreateResume(false)
-            }}
-             onSubmit={(e) => {
-              createNewResume();
-              e.preventDefault();
-              
-            }
-            
-            
-            }  className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
-              <div onClick={ e => {
+              onClick={() => {
+                setCreateResume(false)
+              }}
+              onSubmit={(e) => {
+                createNewResume();
+                e.preventDefault();
+
+              }
+
+
+              } className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
+              <div onClick={e => {
                 e.stopPropagation();
-              }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
+              }} className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
                 <h1 className='text-xl font-bold '>Create a Resume </h1>
-                <i onClick={() => {setCreateResume(false);} } className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
+                <i onClick={() => { setCreateResume(false); }} className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
                 <label htmlFor="tile">Title : </label>
-                <input className='h-8 bg-white px-4 border-black  border outline-none  ' 
-                type="text" name="" 
-                id="title" 
-                value={formTitle}
-                onChange={chnageFormtitle }  
-                 />
+                <input className='h-8 bg-white px-4 border-black  border outline-none  '
+                  type="text" name=""
+                  id="title"
+                  value={formTitle}
+                  onChange={chnageFormtitle}
+                />
                 <button onClick={() => {
                   setFormTitle('');
-                  
-                }}  className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+
+                }} className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
                   Create Resume
                 </button>
               </div>
@@ -145,58 +170,96 @@ const Dashboard = () => {
 
 
         {
-          uploadResume && 
+          uploadResume &&
           (
             <form
-            onClick ={() => {
-              
-              setUploadResume(false)
-            }}
-             onSubmit={(e) => {
-              createAResume();
-              e.preventDefault();
-              
-            }
-            
-            
-            }  className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
-              <div onClick={ e => {
+              onClick={() => {
+
+                setUploadResume(false)
+              }}
+              onSubmit={(e) => {
+                createAResume();
+                e.preventDefault();
+
+              }
+
+
+              } className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
+              <div onClick={e => {
                 e.stopPropagation();
-              }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-110 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
+              }} className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-110 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
                 <h1 className='text-xl font-bold '>Upload your Resume </h1>
-                <i onClick={() => {setUploadResume(false);} } className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
+                <i onClick={() => { setUploadResume(false); }} className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
                 <label htmlFor="tile">Title : </label>
-                <input className='h-8 bg-white px-4 border-black  border outline-none  ' 
-                type="text" name="" 
-                id="title" 
-                value={formTitle}
-                onChange={chnageFormtitle }  
-                 />
+                <input className='h-8 bg-white px-4 border-black  border outline-none  '
+                  type="text" name=""
+                  id="title"
+                  value={formTitle}
+                  onChange={chnageFormtitle}
+                />
 
                 {
-                  resume ? 
-                   <p> { resume.name } </p> :(
-                    <>
-                    <label htmlFor="uploadedpdf">
-                      <div className="flex h-32 w-100 border border-dashed border-black flex-col items-center justify-center">
-                          <i class="fa-solid fa-cloud-arrow-up text-5xl "></i>
-                          <p> Upload Resume </p>
-                      </div>
-                    </label>
-                    <input onChange={ handleFileChange } type="file" name="" id="uploadedpdf"  className='hidden'/>
-                    </>
-                  )
+                  resume ?
+                    <p> {resume.name} </p> : (
+                      <>
+                        <label htmlFor="uploadedpdf">
+                          <div className="flex h-32 w-100 border border-dashed border-black flex-col items-center justify-center">
+                            <i class="fa-solid fa-cloud-arrow-up text-5xl "></i>
+                            <p> Upload Resume </p>
+                          </div>
+                        </label>
+                        <input onChange={handleFileChange} type="file" name="" id="uploadedpdf" className='hidden' />
+                      </>
+                    )
                 }
                 <button onClick={() => {
                   setFormTitle('');
-                  
-                }}  className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+
+                }} className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
                   Edit Resume
                 </button>
               </div>
             </form>
           )
         }
+
+        {
+          editResume && (
+            //  form of Create Resume 
+            <form
+              onClick={() => {
+                setEditResume(false)
+              }}
+              onSubmit={(e) => {
+                e.preventDefault();
+
+              }
+
+
+              } className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
+              <div onClick={e => {
+                e.stopPropagation();
+              }} className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
+                <h1 className='text-xl font-bold '>Edit Resume </h1>
+                <i onClick={() => { setEditResume(false); }} className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
+                <label htmlFor="tile">Title : </label>
+                <input className='h-8 bg-white px-4 border-black  border outline-none  '
+                  type="text" name=""
+                  id="title"
+                  value={formTitle}
+                  onChange={chnageFormtitle}
+                />
+                <button onClick={() => {
+                  setFormTitle('');
+
+                }} className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+                  Create Resume
+                </button>
+              </div>
+            </form>
+          )
+        }
+
 
 
       </div>
