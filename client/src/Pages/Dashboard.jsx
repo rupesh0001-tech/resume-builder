@@ -18,6 +18,7 @@ const Dashboard = () => {
   let [uploadResume, setUploadResume] = useState(false);
   let [resumeId, setResumeId] = useState('');
   let [formTitle, setFormTitle] = useState('');
+  let [resume, setResume] = useState(null);
 
 
   const chnageFormtitle = (e) => {
@@ -25,11 +26,13 @@ const Dashboard = () => {
   }
 
 
-
-
   const addData = async () => {
     setResumedata(dummyResumeData);
   }
+
+  const handleFileChange = (e) => {
+    setResume(e.target.files[0]); // store the first selected file
+  };
 
   const createNewResume = async () => {
   const newId = 'resume123';
@@ -76,7 +79,7 @@ const Dashboard = () => {
         <div className="flex h-20 gap-3  ">
           {resumeData.map((resume, idx) => {
             return (
-              <button key={idx} className=' cursor-pointer relative '
+              <button key={idx} onClick={ () => navigate(`builder/${resume._id}`)} className=' cursor-pointer relative '
                 onMouseEnter={() => setHoverOnHistory(idx)}
                 onMouseLeave={() => setHoverOnHistory(null)}
               >
@@ -159,11 +162,11 @@ const Dashboard = () => {
             }  className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
               <div onClick={ e => {
                 e.stopPropagation();
-              }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
+              }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-110 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
                 <h1 className='text-xl font-bold '>Upload your Resume </h1>
                 <i onClick={() => {setUploadResume(false);} } className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
                 <label htmlFor="tile">Title : </label>
-                <input className='h-8 bg-white px-4 border-black  border-1 outline-none  ' 
+                <input className='h-8 bg-white px-4 border-black  border outline-none  ' 
                 type="text" name="" 
                 id="title" 
                 value={formTitle}
@@ -171,15 +174,16 @@ const Dashboard = () => {
                  />
 
                 {
-                  resume && (
+                  resume ? 
+                   <p> { resume.name } </p> :(
                     <>
                     <label htmlFor="uploadedpdf">
-                      <div className="flex h-36 w-90 border-1 border-dashed border-amber-300 flex-col items-center justify-center">
-                          <i class="fa-solid fa-cloud-arrow-up size-7 "></i>
+                      <div className="flex h-32 w-100 border border-dashed border-black flex-col items-center justify-center">
+                          <i class="fa-solid fa-cloud-arrow-up text-5xl "></i>
                           <p> Upload Resume </p>
                       </div>
                     </label>
-                    <input type="file" name="" id="uploadedpdf"  className='hidden'/>
+                    <input onChange={ handleFileChange } type="file" name="" id="uploadedpdf"  className='hidden'/>
                     </>
                   )
                 }
