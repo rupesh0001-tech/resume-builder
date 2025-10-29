@@ -123,7 +123,7 @@ const Dashboard = () => {
                 <h1 className='text-xl font-bold '>Create a Resume </h1>
                 <i onClick={() => {setCreateResume(false);} } className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
                 <label htmlFor="tile">Title : </label>
-                <input className='h-8 bg-white px-4 border-black  border-1 outline-none  ' 
+                <input className='h-8 bg-white px-4 border-black  border outline-none  ' 
                 type="text" name="" 
                 id="title" 
                 value={formTitle}
@@ -174,9 +174,12 @@ const Dashboard = () => {
                   resume && (
                     <>
                     <label htmlFor="uploadedpdf">
-                      <div className="flex h-36 w-48 border-1 border-dashed border-amber-300 "></div>
+                      <div className="flex h-36 w-90 border-1 border-dashed border-amber-300 flex-col items-center justify-center">
+                          <i class="fa-solid fa-cloud-arrow-up size-7 "></i>
+                          <p> Upload Resume </p>
+                      </div>
                     </label>
-                    <input type="text" name="" id="uploadedpdf" />
+                    <input type="file" name="" id="uploadedpdf"  className='hidden'/>
                     </>
                   )
                 }
