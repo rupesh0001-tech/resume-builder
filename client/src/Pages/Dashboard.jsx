@@ -37,6 +37,12 @@ const Dashboard = () => {
   navigate(`/app/builder/${newId}`);
 };
 
+  const createAResume = async () => {
+    const newId = 'resume123';
+    setResumeId(newId);
+    navigate(`/app/builder/${newId}`);
+  }
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -128,6 +134,57 @@ const Dashboard = () => {
                   
                 }}  className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
                   Create Resume
+                </button>
+              </div>
+            </form>
+          )
+        }
+
+
+        {
+          uploadResume && 
+          (
+            <form
+            onClick ={() => {
+              
+              setUploadResume(false)
+            }}
+             onSubmit={(e) => {
+              createAResume();
+              e.preventDefault();
+              
+            }
+            
+            
+            }  className=' fixed bg-opacity-50  inset-0 bg-black/70  flex items-center justify-center z-10 ' >
+              <div onClick={ e => {
+                e.stopPropagation();
+              }}  className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center ">
+                <h1 className='text-xl font-bold '>Upload your Resume </h1>
+                <i onClick={() => {setUploadResume(false);} } className="fa-solid fa-xmark absolute top-4 right-8 cursor-pointer "> </i>
+                <label htmlFor="tile">Title : </label>
+                <input className='h-8 bg-white px-4 border-black  border-1 outline-none  ' 
+                type="text" name="" 
+                id="title" 
+                value={formTitle}
+                onChange={chnageFormtitle }  
+                 />
+
+                {
+                  resume && (
+                    <>
+                    <label htmlFor="uploadedpdf">
+                      <div className="flex h-36 w-48 border-1 border-dashed border-amber-300 "></div>
+                    </label>
+                    <input type="text" name="" id="uploadedpdf" />
+                    </>
+                  )
+                }
+                <button onClick={() => {
+                  setFormTitle('');
+                  
+                }}  className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+                  Edit Resume
                 </button>
               </div>
             </form>
