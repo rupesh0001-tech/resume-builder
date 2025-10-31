@@ -20,9 +20,7 @@ const userSchama = new  mongoose.Schema({
 
     },
 
-    timestap: {
-        default : new Date(),
-    },
+    
 
 });
 

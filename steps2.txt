@@ -1,0 +1,8 @@
+create userRoutes
+    userRouter.post('name) syntx 
+  ther
+
+add this route in server.js
+    on /api/auth 
+
+use thunderclint and test apis 

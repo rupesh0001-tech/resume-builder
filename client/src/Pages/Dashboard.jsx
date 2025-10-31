@@ -94,7 +94,7 @@ const Dashboard = () => {
                 onMouseEnter={() => setHoverOnHistory(idx)}
                 onMouseLeave={() => setHoverOnHistory(null)}
               >
-                <div onClick={e => e.stopPropagation()} className='h-46 w-38 px-5 py-4 shadow-xl rounded-4xl flex flex-col justify-center items-center hover:shadow-gray-500 duration-200 ease-in-out gap-4  ' style={{ background: colors[idx % colors.length] }} >
+                <div  className='h-46 w-38 px-5 py-4 shadow-xl rounded-4xl flex flex-col justify-center items-center hover:shadow-gray-500 duration-200 ease-in-out gap-4  ' style={{ background: colors[idx % colors.length] }} >
                   <i className="fa-solid fa-user-tie text-white text-5xl"> </i>
                   <h1 className=' text-sm text-amber-200 text-center'>  {resume.personal_info.full_name}'s <span className=' text-amber-50'>Resume </span>   </h1>
                   <p className=' text-[8px] text-white '>  {resume.updatedAt.slice(0, 10)}</p>

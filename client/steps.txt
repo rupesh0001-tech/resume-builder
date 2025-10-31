@@ -1,21 +1,26 @@
-make the resume sample data visible in code dummy resume data 
-use state 
-learn about use effect and add it
-display data using map 
-define color arrary 
-syntax base color = color[i % color.lt] 
-add remove and edit icon 
-make a state to create resume 
-make state to upload resume 
-new syntax state && 
-make input for title (add that set wla logic)
- x icon 
- make set for resume id
- learn about e.stop propogration and also guess where to add it 
-handel on submit 
-if user submit it should navgate to /app/builder/resume123(sampleid)
-in index .css add all butons to cursor 
-input not checkbox apply outline none 
+1
 
- 1.style each element left to right top to bottom 
- 2.same for functions 
+    make the resume sample data visible in code dummy resume data 
+    use state 
+    learn about use effect and add it
+    display data using map 
+    define color arrary 
+    syntax base color = color[i % color.lt] 
+    add remove and edit icon 
+    make a state to create resume 
+    make state to upload resume 
+    new syntax state && 
+    make input for title (add that set wla logic)
+    x icon 
+    make set for resume id
+    learn about e.stop propogration and also guess where to add it 
+    handel on submit 
+    if user submit it should navgate to /app/builder/resume123(sampleid)
+    in index .css add all butons to cursor 
+    input not checkbox apply outline none 
+
+    1.style each element left to right top to bottom 
+    2.same for functions 
+
+2 
+    make back button to /app
