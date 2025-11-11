@@ -2,6 +2,8 @@ import React from "react";
 import Title from "../TItle/Title";
 import FormInput from "../FormInput/FormInput";
 import { useState } from "react";
+import SaveBtn from "./SaveBtn";
+import ProfileImageUploader from "./ProfileImageUploader";
 
 const PersonalInfo = () => {
   let [personalData, setPersonalData] = useState({
@@ -31,7 +33,7 @@ const PersonalInfo = () => {
   }
 
   return (
-    <div className="flex flex-col border border-gray-300 px-8 py-10 ">
+    <div className="flex flex-col  ">
       <div className="flex flex-col mb-8 ">
         <h1 className="text-2xl text-teal-950 font-semibold">
           {" "}
@@ -46,6 +48,7 @@ const PersonalInfo = () => {
       {/* form Data  */}
       <form>
         <div className="formData flex flex-col gap-6">
+          <ProfileImageUploader />
           <FormInput
             name="full_name"
             label="Full Name"
@@ -116,14 +119,9 @@ const PersonalInfo = () => {
             placeholder="Enter your profession"
           />
 
-          <FormInput
-            name="image"
-            label="Image"
-            value={personalData.image}
-            change={handelChange}
-            type="file"
-            placeholder="Upload your image"
-          />
+          
+
+          <SaveBtn name="Save" />
 
         </div>
       </form>
