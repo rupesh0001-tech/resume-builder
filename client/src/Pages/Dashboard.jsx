@@ -37,7 +37,7 @@ const Dashboard = () => {
 
 
   const createNewResume = async () => {
-    const newId = 'resume123';
+    const newId = '68d2a31a1c4dd38875bb037e';
     setResumeId(newId);
     navigate(`/app/builder/${newId}`);
   };

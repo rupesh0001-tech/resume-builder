@@ -1,58 +1,54 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { dummyResumeData } from './../assets/assets.js';
-import { Link } from 'react-router-dom';
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { dummyResumeData } from "./../assets/assets.js";
+import { Link } from "react-router-dom";
+import ResumeForm from "../components/ResumeForms/ResumeForm.jsx";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams();
 
-  const [resumeData, setResumedata] = useState(
-    {
-      _id: '',
-      title: '',
-      personal_info: {},
-      professional_summary: "",
-      experience: [],
-      education: [],
-      project: [],
-      skills: [],
-      template: "classic",
-      accent_color: "#3B82F6",
-      public: false,
-    }
-  )
+  const [resumeData, setResumedata] = useState({
+    _id: "",
+    title: "",
+    personal_info: {},
+    professional_summary: "",
+    experience: [],
+    education: [],
+    project: [],
+    skills: [],
+    template: "classic",
+    accent_color: "#3B82F6",
+    public: false,
+  });
 
   const loadResume = () => {
-    let resume = dummyResumeData.find(resume => resume._id === resumeId);
+    let resume = dummyResumeData.find((resume) => resume._id === resumeId);
     if (resume) {
+      
       setResumedata(resume);
-      document.title = resume.title
-
+      document.title = resume.title;
     }
-
-    useEffect(() => {
-      loadResume()
-    }, [])
   };
 
+  useEffect(() => {
+    loadResume();
+  }, []);
 
   return (
     <>
       <div className="max-w-7xl mx-auto px-4 py-4">
-        <Link to={'/app'}>
+        <Link to={"/app"}>
           <div className="back-to-dashboard flex gap-1 items-center  text-gray-600">
             <i class="fa-solid fa-chevron-left text-gray-600 text-sm "></i>
-            <p>  back to dashboard </p>
+            <p> back to dashboard </p>
           </div>
         </Link>
-        <div className=' flex flex-col'>
-
+        <div className=" flex flex-col">
+          <ResumeForm />
         </div>
       </div>
     </>
+  );
+};
 
-  )
-}
-
-export default ResumeBuilder
+export default ResumeBuilder;
