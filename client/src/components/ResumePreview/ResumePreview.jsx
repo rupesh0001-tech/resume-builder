@@ -1,4 +1,10 @@
 import React from 'react'
+import './ResumePreview.css'; // ✅ add this lin
+
+
+import ModernTemplate from '../../assets/templates/ModernTemplate.jsx'
+import MinimalTemplate from '../../assets/templates/MinimalTemplate.jsx'
+import MinimalImageTemplate from '../../assets/templates/MinimalImageTemplate.jsx'
 import ClassicTemplate from '../../assets/templates/ClassicTemplate.jsx'
 import { dummyResumeData } from '../../assets/assets.js'
 
@@ -6,8 +12,8 @@ const ResumePreview = () => {
     
 
   const data = dummyResumeData[0];
-  const accentColor = "4E61D3";
-  const template = "classic";
+  const accentColor = "#4E61D3";
+  const template = "modern";
   const classes = "";
   
     const renderTemplate = () => {
@@ -25,12 +31,12 @@ const ResumePreview = () => {
   };
 
   return (
-    <div className="  print:shadow-none print:border-none border border-gray-200   ">
-      <div id=" resume-preview" className={" print:shadow-none print:border-none " + classes}>
+    <div className="  print:shadow-none print:border-none border border-gray-200 w-[8.5in] h-auto">
+      <div id="resume-preview" className={" print:shadow-none print:border-none " + classes}>
         {renderTemplate()}
       </div>
 
-      <style jsx>
+      <style>
         {`
           @page {
             size: letter;

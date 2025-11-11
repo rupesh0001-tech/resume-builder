@@ -37,14 +37,14 @@ const ResumeBuilder = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
+      <div className=" max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
         <Link to={"/app"}>
           <div className="back-to-dashboard flex gap-1 items-center  text-gray-600">
             <i class="fa-solid fa-chevron-left text-gray-600 text-sm "></i>
             <p> back to dashboard </p>
           </div>
         </Link>
-        <div className=" flex gap-4 ">
+        <div className=" flex gap-4 flex-wrap justify-between ">
           <ResumeForm />
           <ResumePreview />
         </div>

@@ -35,7 +35,7 @@ const PersonalInfo = () => {
   return (
     <div className="flex flex-col  ">
       <div className="flex flex-col mb-8 ">
-        <h1 className="text-2xl text-teal-950 font-semibold">
+        <h1 className="text-xl text-teal-950 font-semibold">
           {" "}
           personal Information
         </h1>

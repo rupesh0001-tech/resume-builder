@@ -40,8 +40,9 @@ const ResumeForm = () => {
 
   return (
     
-    <div className=" w-1/2 h-max-auto  border border-gray-200  px-8 py-10  ">
+    <div className="  border border-gray-200  px-5 py-5  min-w-[400px] max-w-full ">
       <BackFrontBtns setFormTab = {setFormTab} formTab = {formTab} />
+      <hr className="my-4 text-gray-500" />
       {tabs.map((tab, idx) => {
         return (
           <div

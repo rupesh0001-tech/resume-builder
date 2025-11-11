@@ -1,0 +1,40 @@
+/* Page setup when printing */
+@page {
+  size: letter; /* 8.5in x 11in */
+  margin: 0;
+}
+
+/* PRINT MODE: only show resume preview */
+@media print {
+  html,
+  body {
+    width: 8.5in;
+    height: 11in;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Hide everything on the page */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only resume preview */
+  #resume-preview,
+  #resume-preview * {
+    visibility: visible;
+  }
+
+  /* Remove border, shadow, fix size */
+  #resume-preview {
+    position: absolute;
+    inset: 0; /* shorthand for top:0; left:0 */
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
