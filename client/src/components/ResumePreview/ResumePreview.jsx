@@ -5,11 +5,15 @@ import MinimalTemplate from '../../assets/templates/MinimalTemplate.jsx'
 import MinimalImageTemplate from '../../assets/templates/MinimalImageTemplate.jsx'
 import ClassicTemplate from '../../assets/templates/ClassicTemplate.jsx'
 import { dummyResumeData } from '../../assets/assets.js'
+import { usePersonalInfo } from '../../Hooks/ResumeData/PersonalInfo.jsx';
 
 const ResumePreview = () => {
     
-
+  const {personalInfoData, setPersonalInfoData} = usePersonalInfo();
   const data = dummyResumeData[0];
+  data.personal_info = personalInfoData;
+ 
+  
   const accentColor = "#4E61D3";
   const template = "modern";
   const classes = "";
