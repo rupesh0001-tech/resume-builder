@@ -13,12 +13,17 @@ export const ResumeProvider = ({ children }) => {
     profession: "",
     image: "",
   };
+
+  const initProfessionalSummary =  ''
+  
+
   let [personalInfoData, setPersonalInfoData] = useState(initPersonalData);
-  // logic to create resume
+  let [professionalSummaryData, setProfessionalSummaryData] = useState(initProfessionalSummary);
+  
 
   return (
     <ResumeDataContext.Provider
-      value={{ personalInfoData, setPersonalInfoData }}
+      value={{ personalInfoData, setPersonalInfoData, professionalSummaryData, setProfessionalSummaryData }}
     >
       {children}
     </ResumeDataContext.Provider>

@@ -1,8 +1,20 @@
 import React from "react";
 import FormTextArea from "./FormTextArea";
+import { useProfessionalSummary } from "../../Hooks/ResumeData/ProfessionalSummary";
 
 const professionalSummary = () => {
-  let content = " hello bhai bigFan ";
+  let { professionalSummaryData, setProfessionalSummaryData } =
+    useProfessionalSummary();
+
+
+  const handelChange = (e) => {
+    setProfessionalSummaryData(e.target.value);
+    
+  };
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="flex flex-col  ">
       <div className="flex flex-col mb-8 ">
@@ -16,7 +28,14 @@ const professionalSummary = () => {
         </p>
       </div>
       <div className="flex flex-col">
-        <FormTextArea content={content} name={'professionalSummaryData'} label={'Professional Summary '} />
+        <form onSubmit={handelSubmit}>
+          <FormTextArea
+            professionalSummaryData={professionalSummaryData}
+            handelChange={handelChange}
+            name={"professionalSummaryData"}
+            label={"Professional Summary "}
+          />
+        </form>
       </div>
     </div>
   );

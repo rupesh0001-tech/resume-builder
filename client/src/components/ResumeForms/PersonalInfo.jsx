@@ -9,7 +9,6 @@ import { usePersonalInfo } from "../../Hooks/ResumeData/PersonalInfo.jsx";
 const PersonalInfo = () => {
   const { personalInfoData, setPersonalInfoData } = usePersonalInfo();
   
-
   const handelChange = (e) => {
     setPersonalInfoData({
       ...personalInfoData,
@@ -23,7 +22,7 @@ const PersonalInfo = () => {
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    console.log( personalInfoData );
+    
   }
 
   return (

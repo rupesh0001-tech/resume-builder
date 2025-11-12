@@ -6,12 +6,18 @@ import MinimalImageTemplate from '../../assets/templates/MinimalImageTemplate.js
 import ClassicTemplate from '../../assets/templates/ClassicTemplate.jsx'
 import { dummyResumeData } from '../../assets/assets.js'
 import { usePersonalInfo } from '../../Hooks/ResumeData/PersonalInfo.jsx';
+import { useProfessionalSummary } from '../../Hooks/ResumeData/ProfessionalSummary.jsx';
 
 const ResumePreview = () => {
     
   const {personalInfoData, setPersonalInfoData} = usePersonalInfo();
+  const {professionalSummaryData, setProfessionalSummaryData} = useProfessionalSummary();
   const data = dummyResumeData[0];
+  
   data.personal_info = personalInfoData;
+  data.professional_summary = professionalSummaryData;
+  console.log('1st', professionalSummaryData);
+  console.log('2nd', data);
  
   
   const accentColor = "#4E61D3";

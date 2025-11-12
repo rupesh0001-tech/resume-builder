@@ -10,8 +10,6 @@ import ProfessionalSummary from "./ProfessionalSummary";
 
 const ResumeForm = () => {
 
-
-
   let [formTab, setFormTab] = useState(1);
 
   const tabs = [
