@@ -6,16 +6,7 @@ import SaveBtn from "./SaveBtn";
 import ProfileImageUploader from "./ProfileImageUploader";
 
 const PersonalInfo = () => {
-  let [personalData, setPersonalData] = useState({
-    full_name: "",
-    email: "",
-    phone: "",
-    location: "",
-    linkedin: "",
-    website: "",
-    profession: "",
-    image: "",
-  });
+  let [personalData, setPersonalData] = useState();
 
   const handelChange = (e) => {
     setPersonalData({

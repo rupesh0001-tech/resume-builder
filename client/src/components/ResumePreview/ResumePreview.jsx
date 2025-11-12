@@ -1,7 +1,5 @@
 import React from 'react'
-import './ResumePreview.css'; // ✅ add this lin
-
-
+import './ResumePreview.css';
 import ModernTemplate from '../../assets/templates/ModernTemplate.jsx'
 import MinimalTemplate from '../../assets/templates/MinimalTemplate.jsx'
 import MinimalImageTemplate from '../../assets/templates/MinimalImageTemplate.jsx'
