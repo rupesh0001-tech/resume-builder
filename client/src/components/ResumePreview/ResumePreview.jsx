@@ -31,7 +31,7 @@ const ResumePreview = () => {
   };
 
   return (
-    <div className="  print:shadow-none print:border-none border border-gray-200 w-[8.5in] h-auto">
+   <div className="resume-preview-container">
       <div id="resume-preview" className={" print:shadow-none print:border-none " + classes}>
         {renderTemplate()}
       </div>
