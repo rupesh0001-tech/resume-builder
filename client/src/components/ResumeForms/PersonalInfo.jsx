@@ -4,13 +4,15 @@ import FormInput from "../FormInput/FormInput";
 import { useState } from "react";
 import SaveBtn from "./SaveBtn";
 import ProfileImageUploader from "./ProfileImageUploader";
+import { usePersonalInfo } from "../../Hooks/ResumeData/PersonalInfo.jsx";
 
 const PersonalInfo = () => {
-  let [personalData, setPersonalData] = useState();
+  const { personalInfoData, setPersonalInfoData } = usePersonalInfo();
+  
 
   const handelChange = (e) => {
-    setPersonalData({
-      ...personalData,
+    setPersonalInfoData({
+      ...personalInfoData,
       [e.target.name]: e.target.value,
       
     });
@@ -21,6 +23,7 @@ const PersonalInfo = () => {
 
   const handelSubmit = (e) => {
     e.preventDefault();
+    console.log( personalInfoData );
   }
 
   return (
@@ -37,14 +40,14 @@ const PersonalInfo = () => {
       </div>
 
       {/* form Data  */}
-      <form>
+      <form  onSubmit={handelSubmit}>
         <div className="formData flex flex-col gap-6">
           <ProfileImageUploader />
           <FormInput
             name="full_name"
             label="Full Name"
             icon={<i className="fa-solid fa-user  text-sm mr-1"></i>}
-            value={personalData.name}
+            value={personalInfoData.full_name}
             change={handelChange}
             type="text"
             placeholder="Enter your full name"
@@ -54,7 +57,7 @@ const PersonalInfo = () => {
             name="email"
             label="Email"
             icon={<i className=" fa-solid fa-envelope text-sm mr-1 "></i>}
-            value={personalData.email}
+            value={personalInfoData.email}
             change={handelChange}
             type="email"
             placeholder="Enter your email"
@@ -64,7 +67,7 @@ const PersonalInfo = () => {
             name="phone"
             label="Phone"
             icon={<i className=" fa-solid fa-phone text-sm mr-1 "></i>}
-            value={personalData.phone}
+            value={personalInfoData.phone}
             change={handelChange}
             type="tel"
             placeholder="Enter your phone number"
@@ -74,7 +77,7 @@ const PersonalInfo = () => {
             name="location"
             label="Location"
             icon={<i className=" fa-solid fa-location text-sm mr-1 "></i>}
-            value={personalData.location}
+            value={personalInfoData.location}
             change={handelChange}
             type="text"
             placeholder="Enter your location"
@@ -83,7 +86,7 @@ const PersonalInfo = () => {
           <FormInput
             name="linkedin"
             label="Linkedin"
-            value={personalData.linkedin}
+            value={personalInfoData.linkedin}
             icon={<i className=" fa-brands fa-linkedin text-sm mr-1"></i>}
             change={handelChange}
             type="url"
@@ -93,7 +96,7 @@ const PersonalInfo = () => {
           <FormInput
             name="website"
             label="Website"
-            value={personalData.website}
+            value={personalInfoData.website}
             icon={<i className=" fa-solid fa-globe text-sm mr-1  "></i>}
             change={handelChange}
             type="url"
@@ -104,7 +107,7 @@ const PersonalInfo = () => {
             name="profession"
             label="Profession"
             icon={<i className=" fa-solid fa-briefcase text-sm mr-1 "></i>}
-            value={personalData.profession}
+            value={personalInfoData.profession}
             change={handelChange}
             type="text"
             placeholder="Enter your profession"

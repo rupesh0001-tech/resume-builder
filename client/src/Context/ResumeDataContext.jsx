@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import { createContext, useState, useContext } from "react";
 
-export const resumeDataContext = CreateContext();
+export const ResumeDataContext = createContext(null);
 
 export const ResumeProvider = ({ children }) => {
-  initPersonalData = {
+  const initPersonalData = {
     full_name: "",
     email: "",
     phone: "",
@@ -13,16 +13,14 @@ export const ResumeProvider = ({ children }) => {
     profession: "",
     image: "",
   };
-  let [personalInfoData, setPersonalInfoData] = useState({
-    initPersonalData,
-  });
+  let [personalInfoData, setPersonalInfoData] = useState(initPersonalData);
   // logic to create resume
 
   return (
-    <resumeDataContext.Provider
+    <ResumeDataContext.Provider
       value={{ personalInfoData, setPersonalInfoData }}
     >
       {children}
-    </resumeDataContext.Provider>
+    </ResumeDataContext.Provider>
   );
 };
