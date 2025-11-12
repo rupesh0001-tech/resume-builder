@@ -4,29 +4,17 @@ import { dummyResumeData } from "./../assets/assets.js";
 import { Link } from "react-router-dom";
 import ResumeForm from "../components/ResumeForms/ResumeForm.jsx";
 import ResumePreview from "../components/ResumePreview/ResumePreview.jsx";
+import { usePersonalInfo } from "../Hooks/ResumeData/PersonalInfo.jsx";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams();
-
-  const [resumeData, setResumedata] = useState({
-    _id: "",
-    title: "",
-    personal_info: {},
-    professional_summary: "",
-    experience: [],
-    education: [],
-    project: [],
-    skills: [],
-    template: "classic",
-    accent_color: "#3B82F6",
-    public: false,
-  });
+  const {personalInfoData, setPersonalInfoData} = usePersonalInfo()
 
   const loadResume = () => {
     let resume = dummyResumeData.find((resume) => resume._id === resumeId);
-    if (resume) {
-      
-      setResumedata(resume);
+    if (resume) {  
+  
+      setPersonalInfoData(resume.personal_info)
       document.title = resume.title;
     }
   };

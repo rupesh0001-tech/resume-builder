@@ -6,6 +6,7 @@ import Project from "./Project";
 import Skills from "./Skills";
 import { useState } from "react";
 import BackFrontBtns from "./BackFrontBtns";
+import ProfessionalSummary from "./ProfessionalSummary";
 
 const ResumeForm = () => {
 
@@ -21,21 +22,26 @@ const ResumeForm = () => {
     },
     {
       id: 2,
+      title: "Professional Summary",
+      component: <ProfessionalSummary />,
+    },
+    {
+      id: 3,
       title: "Experience",
       component: <Experience />,
     },
     {
-      id: 3,
+      id: 4,
       title: "Education",
       component: <Education />,
     },
     {
-      id: 4,
+      id: 5,
       title: "Project",
       component: <Project />,
     },
     {
-      id: 5,
+      id: 6,
       title: "Skills",
       component: <Skills />,
     },
