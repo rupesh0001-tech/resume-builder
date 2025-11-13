@@ -1,6 +1,7 @@
 import React from "react";
 import FormTextArea from "./FormTextArea";
 import { useProfessionalSummary } from "../../Hooks/ResumeData/ProfessionalSummary";
+import SaveBtn from "./SaveBtn";
 
 
 const professionalSummary = () => {
@@ -28,14 +29,15 @@ const professionalSummary = () => {
           Enter your professional summary{" "}
         </p>
       </div>
-      <div className="flex flex-col">
-        <form onSubmit={handelSubmit}>
+      <div className="flex flex-col gap-4">
+        <form className="flex flex-col gap-8" onSubmit={handelSubmit}>
           <FormTextArea
             professionalSummaryData={professionalSummaryData}
             handelChange={handelChange}
             name={"professionalSummaryData"}
             label={"Professional Summary "}
           />
+          <SaveBtn name={"Save"} />
         </form>
       </div>
     </div>

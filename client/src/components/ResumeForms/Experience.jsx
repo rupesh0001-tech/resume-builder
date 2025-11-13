@@ -1,6 +1,7 @@
 import React from "react";
 import FormInput from "../FormInput/FormInput";
 import { useExperience } from "../../Hooks/ResumeData/Experience";
+import SaveBtn from "./SaveBtn";
 
 const Experience = () => {
   const { experienceData, setExperienceData } = useExperience();
@@ -65,8 +66,7 @@ const Experience = () => {
             placeholder=""
           />
 
-
-          <label className=" opacity-80" htmlFor='description'>
+          <label className=" opacity-80" htmlFor="description">
             <i class="fa-regular fa-pen-to-square"></i> description
           </label>
           <textarea
@@ -81,7 +81,19 @@ const Experience = () => {
               resize: "none",
             }}
           ></textarea>
+
+          <button className=" 
+          
+          px-6 py-4 bg-gray-400 w-auto hover:bg-gray-500 rounded-xl transition duration-200 hover:cursor-pointer">
+            <i class="fa-solid fa-plus"></i> Add Experience
+          </button>
         </div>
+        <hr className="mt-5 mb-2" />
+        <div className="flex flex-col gap-4">
+          <p className="text-md text-gray-800 text-md">  Your Experience </p>
+          
+        </div>
+        <SaveBtn name="Save " />
       </form>
     </div>
   );
