@@ -16,8 +16,7 @@ const ResumePreview = () => {
   
   data.personal_info = personalInfoData;
   data.professional_summary = professionalSummaryData;
-  console.log('1st', professionalSummaryData);
-  console.log('2nd', data);
+  
  
   
   const accentColor = "#4E61D3";

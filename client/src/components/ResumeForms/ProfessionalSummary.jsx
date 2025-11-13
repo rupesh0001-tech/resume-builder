@@ -2,6 +2,7 @@ import React from "react";
 import FormTextArea from "./FormTextArea";
 import { useProfessionalSummary } from "../../Hooks/ResumeData/ProfessionalSummary";
 
+
 const professionalSummary = () => {
   let { professionalSummaryData, setProfessionalSummaryData } =
     useProfessionalSummary();

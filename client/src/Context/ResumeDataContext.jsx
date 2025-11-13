@@ -13,17 +13,32 @@ export const ResumeProvider = ({ children }) => {
     profession: "",
     image: "",
   };
-
-  const initProfessionalSummary =  ''
-  
+  const initProfessionalSummary = "";
 
   let [personalInfoData, setPersonalInfoData] = useState(initPersonalData);
-  let [professionalSummaryData, setProfessionalSummaryData] = useState(initProfessionalSummary);
-  
+  let [professionalSummaryData, setProfessionalSummaryData] = useState(
+    initProfessionalSummary
+  );
+  let [experienceData, setExperienceData] = useState([{
+    company: "",
+    position: "",
+    startDate: "",
+    endDate: "",
+    description: "",
+    isCurrent: false,
+    _id: ""
+  }]);
 
   return (
     <ResumeDataContext.Provider
-      value={{ personalInfoData, setPersonalInfoData, professionalSummaryData, setProfessionalSummaryData }}
+      value={{
+        personalInfoData,
+        setPersonalInfoData,
+        professionalSummaryData,
+        setProfessionalSummaryData,
+        experienceData,
+        setExperienceData,
+      }}
     >
       {children}
     </ResumeDataContext.Provider>
