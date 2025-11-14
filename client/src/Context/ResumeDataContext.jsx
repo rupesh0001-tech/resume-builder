@@ -29,6 +29,9 @@ export const ResumeProvider = ({ children }) => {
     _id: ""
   }]);
 
+  let [educationData, setEducationData] = useState([]);
+
+
   return (
     <ResumeDataContext.Provider
       value={{
@@ -38,6 +41,8 @@ export const ResumeProvider = ({ children }) => {
         setProfessionalSummaryData,
         experienceData,
         setExperienceData,
+        educationData,
+        setEducationData
       }}
     >
       {children}
