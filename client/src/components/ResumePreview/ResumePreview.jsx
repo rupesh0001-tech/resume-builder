@@ -7,15 +7,17 @@ import ClassicTemplate from '../../assets/templates/ClassicTemplate.jsx'
 import { dummyResumeData } from '../../assets/assets.js'
 import { usePersonalInfo } from '../../Hooks/ResumeData/PersonalInfo.jsx';
 import { useProfessionalSummary } from '../../Hooks/ResumeData/ProfessionalSummary.jsx';
+import { useExperience } from '../../Hooks/ResumeData/Experience.jsx';
 
 const ResumePreview = () => {
     
   const {personalInfoData, setPersonalInfoData} = usePersonalInfo();
   const {professionalSummaryData, setProfessionalSummaryData} = useProfessionalSummary();
+  const {experienceData, setExperienceData} = useExperience();
   const data = dummyResumeData[0];
-  
   data.personal_info = personalInfoData;
   data.professional_summary = professionalSummaryData;
+  data.experience = experienceData;
   
  
   
