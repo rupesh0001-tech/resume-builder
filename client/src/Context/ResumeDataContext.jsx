@@ -19,15 +19,7 @@ export const ResumeProvider = ({ children }) => {
   let [professionalSummaryData, setProfessionalSummaryData] = useState(
     initProfessionalSummary
   );
-  let [experienceData, setExperienceData] = useState([{
-    company: "",
-    position: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-    isCurrent: false,
-    _id: ""
-  }]);
+  let [experienceData, setExperienceData] = useState([]);
 
   let [educationData, setEducationData] = useState([]);
 

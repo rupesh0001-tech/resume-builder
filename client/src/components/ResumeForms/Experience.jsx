@@ -39,7 +39,7 @@ const Experience = () => {
       copy.push(emptyExp());
       return copy;
     });
-    console.log(experienceData)
+    console.log(experienceData);
   };
 
   const handleRemoveExperience = (id) => {
@@ -60,10 +60,10 @@ const Experience = () => {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="formData flex flex-col gap-6">
+        <div className="formData flex flex-col gap-8">
           {Array.isArray(experienceData) &&
             experienceData.map((exp, idx) => (
-              <div key={exp.id} className="  rounded-md">
+              <div key={exp.id} className="  rounded-md flex flex-col">
                 <div className="flex justify-between items-center mb-3">
                   <h2 className="font-medium">Experience #{idx + 1}</h2>
                   <div className="flex gap-2">
@@ -86,66 +86,78 @@ const Experience = () => {
                   </div>
                 </div>
 
-                <FormInput
-                  name="company"
-                  label="Company Name"
-                  icon={<i className="fa-solid fa-building  text-sm mr-1"></i>}
-                  value={exp.company}
-                  change={(e) => handleChange(e, idx)}
-                  type="text"
-                  placeholder="ABC Technologies Pvt. Ltd."
-                />
-
-                <FormInput
-                  name="position"
-                  label="Position"
-                  icon={<i className="fa-solid fa-ranking-star  text-sm mr-1"></i>}
-                  value={exp.position}
-                  change={(e) => handleChange(e, idx)}
-                  type="text"
-                  placeholder="Full Stack Web Developer"
-                />
-
-                <div className="flex gap-4">
+                <div className=" flex flex-col gap-4">
                   <FormInput
-                    name="start_date"
-                    label="Date of joining"
-                    icon={<i className="fa-solid fa-calendar  text-sm mr-1"></i>}
-                    value={exp.start_date}
+                    name="company"
+                    label="Company Name"
+                    icon={
+                      <i className="fa-solid fa-building  text-sm mr-1"></i>
+                    }
+                    value={exp.company}
                     change={(e) => handleChange(e, idx)}
-                    type="date"
-                    placeholder=""
+                    type="text"
+                    placeholder="ABC Technologies Pvt. Ltd."
                   />
 
                   <FormInput
-                    name="end_date"
-                    label="Date of leaving"
-                    icon={<i className="fa-solid fa-calendar  text-sm mr-1"></i>}
-                    value={exp.end_date}
+                    name="position"
+                    label="Position"
+                    icon={
+                      <i className="fa-solid fa-ranking-star  text-sm mr-1"></i>
+                    }
+                    value={exp.position}
                     change={(e) => handleChange(e, idx)}
-                    type="date"
-                    placeholder=""
+                    type="text"
+                    placeholder="Full Stack Web Developer"
+                  />
+
+                  <div className="flex gap-4">
+                    <FormInput
+                      name="start_date"
+                      label="Date of joining"
+                      icon={
+                        <i className="fa-solid fa-calendar  text-sm mr-1"></i>
+                      }
+                      value={exp.start_date}
+                      change={(e) => handleChange(e, idx)}
+                      type="date"
+                      placeholder=""
+                    />
+
+                    <FormInput
+                      name="end_date"
+                      label="Date of leaving"
+                      icon={
+                        <i className="fa-solid fa-calendar  text-sm mr-1"></i>
+                      }
+                      value={exp.end_date}
+                      change={(e) => handleChange(e, idx)}
+                      type="date"
+                      placeholder=""
+                    />
+                  </div>
+
+                  <label
+                    className="opacity-80"
+                    htmlFor={`description-${exp.id}`}
+                  >
+                    <i className="fa-regular fa-pen-to-square"></i> description
+                  </label>
+                  <textarea
+                    name="description"
+                    id={`description-${exp.id}`}
+                    className="border mt-1 border-gray-500/30 px-2 py-2.5 focus:border-gray-500 outline-none rounded w-full"
+                    rows="4"
+                    value={exp.description}
+                    onChange={(e) => handleChange(e, idx)}
+                    style={{ resize: "none" }}
                   />
                 </div>
-
-                <label className="opacity-80" htmlFor={`description-${exp.id}`}>
-                  <i className="fa-regular fa-pen-to-square"></i> description
-                </label>
-                <textarea
-                  name="description"
-                  id={`description-${exp.id}`}
-                  className="border mt-1 border-gray-500/30 px-2 py-2.5 focus:border-gray-500 outline-none rounded w-full"
-                  rows="4"
-                  value={exp.description}
-                  onChange={(e) => handleChange(e, idx)}
-                  style={{ resize: "none" }}
-                />
               </div>
             ))}
         </div>
 
         <hr className="mt-5 mb-2" />
-        
 
         <div className="flex gap-3 items-center mt-4">
           <button

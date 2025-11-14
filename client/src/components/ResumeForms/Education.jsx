@@ -1,162 +1,168 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormInput from "../FormInput/FormInput";
-import { useEducationInfo } from "../../Hooks/ResumeData/EducationInfo";
 import SaveBtn from "./SaveBtn";
-
-const emptyEdu = () => ({
-  id: Date.now().toString() + Math.random().toString(36).slice(2),
-  degree: "",
-  institution: "",
-  field: "",
-  graduation_date: "",
-  gpa: "",
-});
+import { useEducationInfo } from "../../Hooks/ResumeData/EducationInfo";
+import { useState } from "react";
 
 const Education = () => {
-  const { educationInfo, setEducationInfo } = useEducationInfo();
+  const { educationData, setEducationData } = useEducationInfo();
 
-  // Ensure array on first mount
-  React.useEffect(() => {
-    if (!Array.isArray(educationInfo) || educationInfo.length === 0) {
-      setEducationInfo([emptyEdu()]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [data, setData] = useState({
+    degree: "",
+    institution: "",
+    field: "",
+    graduation_date: "",
+    description: "",
+  });
 
-  const handleChange = (e, index) => {
-    const { name, value } = e.target;
-    setEducationInfo((prev) => {
-      const arr = Array.isArray(prev) ? [...prev] : [];
-      arr[index] = { ...arr[index], [name]: value };
-      return arr;
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleAddEducation = () => {
-    setEducationInfo((prev) => {
-      const arr = Array.isArray(prev) ? [...prev] : [];
-      arr.push(emptyEdu());
-      return arr;
-    });
+  const handleAdd = () => {
+    setEducationData((prev) => [...prev, data]);
+    console.log("Added:", data);
   };
 
-  const handleRemoveEducation = (id) => {
-    setEducationInfo((prev) => prev.filter((item) => item.id !== id));
-  };
+  const handleDel = () => {
+    setEducationData((prev) =>  [...prev.slice(0, prev.length - 2)] );
+    console.log("Deleted:", data);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Saved Education:", educationInfo);
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col mb-8">
-        <h1 className="text-xl text-teal-950 font-semibold">Education</h1>
+    <>
+      <div className="flex flex-col mb-8 ">
+        <h1 className="text-xl text-teal-950 font-semibold">
+          {" "}
+          Educational Information
+        </h1>
         <p className="text-md text-gray-500 text-sm">
-          Add your educational background
+          {" "}
+          Enter About your Education{" "}
         </p>
       </div>
+      <form onSubmit={handleSubmit} className="flex flex-col ">
+        <div className=" flex flex-col gap-4 ">
+          <FormInput
+            name="degree"
+            label="Degree"
+            value={data.degree}
+            change={handleChange}
+            placeholder="Enter your degree"
+            icon={<i className="fa-solid fa-graduation-cap"></i>}
+          />
 
-      <form onSubmit={handleSubmit}>
-        <div className="formData flex flex-col gap-6">
+          <FormInput
+            name="institution"
+            label="Institution"
+            change={handleChange}
+            value={data.institution}
+            placeholder="Enter your institution"
+            icon={<i className="fa-solid fa-school"></i>}
+          />
 
-          {Array.isArray(educationInfo) &&
-            educationInfo.map((edu, idx) => (
-              <div key={edu.id} className="rounded-md">
-                <div className="flex justify-between items-center mb-3">
-                  <h2 className="font-medium">Education #{idx + 1}</h2>
+          <FormInput
+            name="field"
+            label="Field"
+            change={handleChange}
+            value={data.field}
+            placeholder="Enter your field"
+            icon={<i className="fa-solid fa-book"></i>}
+          />
 
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveEducation(edu.id)}
-                      className="px-3 py-1 bg-red-200 rounded hover:bg-red-300 cursor-pointer"
-                    >
-                      Remove
-                    </button>
+          <FormInput
+            name="graduation_date"
+            label="Graduation Date"
+            type="date"
+            change={handleChange}
+            value={data.graduation_date}
+            placeholder="Enter graduation date"
+            icon={<i className="fa-solid fa-calendar"></i>}
+          />
 
-                    {idx === educationInfo.length - 1 && (
-                      <button
-                        type="button"
-                        onClick={handleAddEducation}
-                        className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 cursor-pointer"
-                      >
-                        + Add
-                      </button>
-                    )}
-                  </div>
-                </div>
+          <FormInput
+            name="gpa"
+            label="GPA"
+            type="number"
+            change={handleChange}
+            value={data.gpa}
+            placeholder="Enter your GPA"
+            icon={<i className="fa-solid fa-chart-line"></i>}
+          />
 
-                <FormInput
-                  name="degree"
-                  label="Degree"
-                  icon={<i className="fa-solid fa-graduation-cap mr-1"></i>}
-                  value={edu.degree}
-                  change={(e) => handleChange(e, idx)}
-                  type="text"
-                  placeholder="B.Tech, B.Sc, MBA, etc."
-                />
+          <div className="flex gap-4">
+            <button
+              className="px-4 py-2 bg-indigo-400 rounded-lg hover:bg-indigo-500 active:scale-95 transition-all text-white hover:cursor-pointer"
+              onClick={(e) => {
+                handleAdd();
+              }}
+            >
+              Add
+            </button>
 
-                <FormInput
-                  name="institution"
-                  label="Institution"
-                  icon={<i className="fa-solid fa-building-columns mr-1"></i>}
-                  value={edu.institution}
-                  change={(e) => handleChange(e, idx)}
-                  type="text"
-                  placeholder="University of XYZ"
-                />
-
-                <FormInput
-                  name="field"
-                  label="Field of Study"
-                  icon={<i className="fa-solid fa-book-open mr-1"></i>}
-                  value={edu.field}
-                  change={(e) => handleChange(e, idx)}
-                  type="text"
-                  placeholder="Computer Science"
-                />
-
-                <div className="flex gap-4">
-                  <FormInput
-                    name="graduation_date"
-                    label="Graduation Date"
-                    icon={<i className="fa-solid fa-calendar mr-1"></i>}
-                    value={edu.graduation_date}
-                    change={(e) => handleChange(e, idx)}
-                    type="date"
-                  />
-
-                  <FormInput
-                    name="gpa"
-                    label="GPA / Percentage"
-                    icon={<i className="fa-solid fa-percent mr-1"></i>}
-                    value={edu.gpa}
-                    change={(e) => handleChange(e, idx)}
-                    type="text"
-                    placeholder="8.5 CGPA"
-                  />
-                </div>
-              </div>
-            ))}
-        </div>
-
-        <hr className="mt-5 mb-2" />
-
-        <div className="flex gap-3 items-center mt-4">
-          <button
-            type="button"
-            onClick={handleAddEducation}
-            className="px-3 py-3 bg-gray-400 hover:bg-gray-500 rounded-xl transition duration-200 cursor-pointer"
-          >
-            Add Education
-          </button>
-
-          <SaveBtn name="Save" />
+            <button className="px-4 py-2 bg-indigo-400 rounded-lg hover:bg-indigo-500 active:scale-95 transition-all text-white hover:cursor-pointer">
+              save
+            </button>
+          </div>
         </div>
       </form>
-    </div>
+      <hr className="mt-4 mb-4" />
+      <div>
+        <h1 className="text-xl text-teal-950 font-semibold">
+          {" "}
+          Education Details
+        </h1>
+        {educationData.map((edu, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-md border border-gray-200 rounded-xl p-4 mt-4 hover:shadow-lg transition-all"
+          >
+            <div className="flex justify-between items-start">
+              <h3 className="text-lg font-semibold text-teal-700 flex items-center gap-2">
+                <i className="fa-solid fa-graduation-cap text-teal-600"></i>
+                {edu.degree}
+              </h3>
+
+              {/* DELETE BUTTON */}
+              <button
+                onClick={() => handleDel()}
+                className="text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition-all hover:cursor-pointer"
+              >
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </div>
+
+            <div className="mt-2 text-gray-700 space-y-1">
+              <p>
+                <span className="font-medium text-gray-900">Institution:</span>{" "}
+                {edu.institution}
+              </p>
+              <p>
+                <span className="font-medium text-gray-900">Field:</span>{" "}
+                {edu.field}
+              </p>
+              <p>
+                <span className="font-medium text-gray-900">
+                  Graduation Date:
+                </span>{" "}
+                {edu.graduation_date}
+              </p>
+              <p>
+                <span className="font-medium text-gray-900">Description:</span>{" "}
+                {edu.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
