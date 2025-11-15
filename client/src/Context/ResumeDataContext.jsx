@@ -22,7 +22,7 @@ export const ResumeProvider = ({ children }) => {
   let [experienceData, setExperienceData] = useState([]);
   let [educationData, setEducationData] = useState([]);
   let [projectData, setProjectData] = useState([]);
-
+  let [skillData, setSkillData] = useState([]);
 
   return (
     <ResumeDataContext.Provider
@@ -36,7 +36,9 @@ export const ResumeProvider = ({ children }) => {
         educationData,
         setEducationData,
         projectData,
-        setProjectData
+        setProjectData,
+        skillData,
+        setSkillData,
       }}
     >
       {children}

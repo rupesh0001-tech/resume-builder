@@ -10,6 +10,7 @@ import { useProfessionalSummary } from '../../Hooks/ResumeData/ProfessionalSumma
 import { useExperience } from '../../Hooks/ResumeData/Experience.jsx';
 import { useEducationInfo } from '../../Hooks/ResumeData/EducationInfo.jsx';
 import { useProjectInfo } from '../../Hooks/ResumeData/ProjectInfo.jsx';
+import { useSkillInfo } from '../../Hooks/ResumeData/SkillInfo.jsx';
 
 
 const ResumePreview = () => {
@@ -19,6 +20,7 @@ const ResumePreview = () => {
   const {experienceData, setExperienceData} = useExperience();
   const {educationData, setEducationData} = useEducationInfo();
   const {projectData, setProjectData} = useProjectInfo();
+  const {skillData, setSkillData} = useSkillInfo();
   const data = dummyResumeData[0];
 
   data.personal_info = personalInfoData;
@@ -26,6 +28,7 @@ const ResumePreview = () => {
   data.experience = experienceData;
   data.education = educationData;
   data.project = projectData;
+  data.skills = skillData;
  
   
   const accentColor = "#4E61D3";
