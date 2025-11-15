@@ -13,6 +13,7 @@ const Education = () => {
     field: "",
     graduation_date: "",
     description: "",
+    gpa: "",
   });
 
   const handleChange = (e) => {
@@ -23,7 +24,7 @@ const Education = () => {
   };
 
   const handleAdd = () => {
-    setEducationData((prev) => [...prev, data]);
+    setEducationData(prev => [...prev, { ...data }]);
     console.log("Added:", data);
   };
 
