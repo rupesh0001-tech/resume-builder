@@ -25,12 +25,11 @@ const Education = () => {
 
   const handleAdd = () => {
     setEducationData(prev => [...prev, { ...data }]);
-    console.log("Added:", data);
   };
 
   const handleDel = () => {
     setEducationData((prev) =>  [...prev.slice(0, prev.length - 2)] );
-    console.log("Deleted:", data);
+    
   }
 
   const handleSubmit = (e) => {

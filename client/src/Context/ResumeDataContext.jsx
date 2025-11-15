@@ -20,8 +20,8 @@ export const ResumeProvider = ({ children }) => {
     initProfessionalSummary
   );
   let [experienceData, setExperienceData] = useState([]);
-
   let [educationData, setEducationData] = useState([]);
+  let [projectData, setProjectData] = useState([]);
 
 
   return (
@@ -34,7 +34,9 @@ export const ResumeProvider = ({ children }) => {
         experienceData,
         setExperienceData,
         educationData,
-        setEducationData
+        setEducationData,
+        projectData,
+        setProjectData
       }}
     >
       {children}
