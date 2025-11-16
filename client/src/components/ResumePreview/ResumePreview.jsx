@@ -11,6 +11,7 @@ import { useExperience } from '../../Hooks/ResumeData/Experience.jsx';
 import { useEducationInfo } from '../../Hooks/ResumeData/EducationInfo.jsx';
 import { useProjectInfo } from '../../Hooks/ResumeData/ProjectInfo.jsx';
 import { useSkillInfo } from '../../Hooks/ResumeData/SkillInfo.jsx';
+import { useTemplate } from '../../Hooks/ResumeData/useTemplate.jsx';
 
 
 const ResumePreview = () => {
@@ -30,12 +31,13 @@ const ResumePreview = () => {
   data.project = projectData;
   data.skills = skillData;
  
-  
+  const {template, setTemplate} = useTemplate();
   const accentColor = "#4E61D3";
-  const template = "modern";
+
   const classes = "";
   
     const renderTemplate = () => {
+
       
     switch (template) {
       case "modern":

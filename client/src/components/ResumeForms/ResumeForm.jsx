@@ -7,9 +7,9 @@ import Skills from "./Skills";
 import { useState } from "react";
 import BackFrontBtns from "./BackFrontBtns";
 import ProfessionalSummary from "./ProfessionalSummary";
+import ThemeSelector from "./ThemeSelector";
 
 const ResumeForm = () => {
-
   let [formTab, setFormTab] = useState(1);
 
   const tabs = [
@@ -46,22 +46,23 @@ const ResumeForm = () => {
   ];
 
   return (
-    
     <div className="resume-form-wrapper">
-      <BackFrontBtns setFormTab = {setFormTab} formTab = {formTab} />
+      <div className="flex justify-between items-center w-full ">
+        <ThemeSelector />
+        <BackFrontBtns setFormTab={setFormTab} formTab={formTab} />
+        
+      </div>
       <hr className="my-4 text-gray-500" />
       {tabs.map((tab, idx) => {
         return (
           <div
             key={idx}
-            className={` ${formTab === tab.id ? "block" : "hidden"} `}
+            className={` ${formTab === tab.id ? "block" : "hidden"} w-90`}
           >
             {tab.component}
           </div>
         );
       })}
-
-      
     </div>
   );
 };

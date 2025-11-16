@@ -23,6 +23,8 @@ export const ResumeProvider = ({ children }) => {
   let [educationData, setEducationData] = useState([]);
   let [projectData, setProjectData] = useState([]);
   let [skillData, setSkillData] = useState([]);
+  let [template, setTemplate] = useState("classic");
+  let [accentColor, setAccentColor] = useState("#4E61D3");
 
   return (
     <ResumeDataContext.Provider
@@ -39,6 +41,8 @@ export const ResumeProvider = ({ children }) => {
         setProjectData,
         skillData,
         setSkillData,
+        template,
+        setTemplate,
       }}
     >
       {children}
