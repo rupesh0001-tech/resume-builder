@@ -1,177 +1,173 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import FormInput from "../FormInput/FormInput";
 import { useExperience } from "../../Hooks/ResumeData/Experience";
-import SaveBtn from "./SaveBtn";
 
-const emptyExp = () => ({
-  id: Date.now().toString() + Math.random().toString(36).slice(2), // unique id
-  company: "",
-  position: "",
-  start_date: "",
-  end_date: "",
-  description: "",
-});
+
 
 const Experience = () => {
   const { experienceData, setExperienceData } = useExperience();
 
-  // If experienceData might be undefined, initialize it as an array
-  React.useEffect(() => {
-    // If experienceData is undefined, initialize it as an array
-    if (!Array.isArray(experienceData) || experienceData.length === 0) {
-      setExperienceData([emptyExp()]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once on mount
+  const initData = {
+    position: "",
+    company: "",
+    startDate: "",
+    endDate: "",
+    description: "",
+    isCurrent: false,
+  };
 
-  const handleChange = (e, index) => {
-    const { name, value } = e.target;
-    setExperienceData((prev) => {
-      const copy = Array.isArray(prev) ? [...prev] : [];
-      copy[index] = { ...copy[index], [name]: value };
-      return copy;
+  const [data, setData] = useState({
+    position: "",
+    company: "",
+    startDate: "",
+    endDate: "",
+    description: "",
+    isCurrent: false,
+  });
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleAddExperience = () => {
-    setExperienceData((prev) => {
-      const copy = Array.isArray(prev) ? [...prev] : [];
-      copy.push(emptyExp());
-      return copy;
-    });
-    console.log(experienceData);
+  const handleAdd = () => {
+    setExperienceData((prev) => [...prev, { ...data }]);
   };
 
-  const handleRemoveExperience = (id) => {
-    setExperienceData((prev) => prev.filter((e) => e.id !== id));
+  const handleDel = () => {
+    setExperienceData((prev) => [...prev.slice(0, prev.length - 2)]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // do whatever you need here, e.g. validation or sending to backend
-    console.log("Saved experiences:", experienceData);
   };
 
   return (
-    <div className="flex flex-col ">
+    <>
       <div className="flex flex-col mb-8 ">
-        <h1 className="text-xl text-teal-950 font-semibold"> Experience</h1>
-        <p className="text-md text-gray-500 text-sm"> Add Your Experience </p>
+        <h1 className="text-xl text-teal-950 font-semibold"> Experience </h1>
+        <p className="text-md text-gray-500 text-sm">
+          Enter About your Experience
+        </p>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="formData flex flex-col gap-8">
-          {Array.isArray(experienceData) &&
-            experienceData.map((exp, idx) => (
-              <div key={exp.id} className="  rounded-md flex flex-col">
-                <div className="flex justify-between items-center mb-3">
-                  <h2 className="font-medium">Experience #{idx + 1}</h2>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveExperience(exp.id)}
-                      className="px-3 py-1 bg-red-200 rounded hover:bg-red-300 hover:cursor-pointer"
-                    >
-                      Remove
-                    </button>
-                    {idx === experienceData.length - 1 && (
-                      <button
-                        type="button"
-                        onClick={handleAddExperience}
-                        className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 cursor-pointer"
-                      >
-                        + Add
-                      </button>
-                    )}
-                  </div>
-                </div>
+      <form onSubmit={handleSubmit} className="flex flex-col ">
+        <div className="flex flex-col gap-4">
 
-                <div className=" flex flex-col gap-4">
-                  <FormInput
-                    name="company"
-                    label="Company Name"
-                    icon={
-                      <i className="fa-solid fa-building  text-sm mr-1"></i>
-                    }
-                    value={exp.company}
-                    change={(e) => handleChange(e, idx)}
-                    type="text"
-                    placeholder="ABC Technologies Pvt. Ltd."
-                  />
+          <FormInput
+            name="position"
+            label="Position"
+            value={data.position}
+            change={handleChange}
+            placeholder="Enter your job position"
+            icon={<i className="fa-solid fa-user-tie"></i>}
+          />
 
-                  <FormInput
-                    name="position"
-                    label="Position"
-                    icon={
-                      <i className="fa-solid fa-ranking-star  text-sm mr-1"></i>
-                    }
-                    value={exp.position}
-                    change={(e) => handleChange(e, idx)}
-                    type="text"
-                    placeholder="Full Stack Web Developer"
-                  />
+          <FormInput
+            name="company"
+            label="Company"
+            value={data.company}
+            change={handleChange}
+            placeholder="Enter company name"
+            icon={<i className="fa-solid fa-building"></i>}
+          />
 
-                  <div className="flex gap-4">
-                    <FormInput
-                      name="start_date"
-                      label="Date of joining"
-                      icon={
-                        <i className="fa-solid fa-calendar  text-sm mr-1"></i>
-                      }
-                      value={exp.start_date}
-                      change={(e) => handleChange(e, idx)}
-                      type="date"
-                      placeholder=""
-                    />
+          <FormInput
+            name="startDate"
+            label="Start Date"
+            type="date"
+            value={data.startDate}
+            change={handleChange}
+            placeholder="Enter start date"
+            icon={<i className="fa-solid fa-calendar"></i>}
+          />
 
-                    <FormInput
-                      name="end_date"
-                      label="Date of leaving"
-                      icon={
-                        <i className="fa-solid fa-calendar  text-sm mr-1"></i>
-                      }
-                      value={exp.end_date}
-                      change={(e) => handleChange(e, idx)}
-                      type="date"
-                      placeholder=""
-                    />
-                  </div>
+          <FormInput
+            name="endDate"
+            label="End Date"
+            type="date"
+            value={data.endDate}
+            change={handleChange}
+            placeholder="Enter end date"
+            icon={<i className="fa-solid fa-calendar-days"></i>}
+          />
 
-                  <label
-                    className="opacity-80"
-                    htmlFor={`description-${exp.id}`}
-                  >
-                    <i className="fa-regular fa-pen-to-square"></i> description
-                  </label>
-                  <textarea
-                    name="description"
-                    id={`description-${exp.id}`}
-                    className="border mt-1 border-gray-500/30 px-2 py-2.5 focus:border-gray-500 outline-none rounded w-full"
-                    rows="4"
-                    value={exp.description}
-                    onChange={(e) => handleChange(e, idx)}
-                    style={{ resize: "none" }}
-                  />
-                </div>
-              </div>
-            ))}
-        </div>
+          <FormInput
+            name="description"
+            label="Description"
+            value={data.description}
+            change={handleChange}
+            placeholder="Enter job description"
+            icon={<i className="fa-solid fa-align-left"></i>}
+          />
 
-        <hr className="mt-5 mb-2" />
+          <div className="flex gap-4">
+            <button
+              className="px-4 py-2 bg-indigo-400 rounded-lg hover:bg-indigo-500 active:scale-95 transition-all text-white hover:cursor-pointer"
+              onClick={(e) => {
+                handleAdd();
+              }}
+            >
+              Add
+            </button>
 
-        <div className="flex gap-3 items-center mt-4">
-          <button
-            type="button"
-            onClick={handleAddExperience}
-            className="px-3 py-3 bg-gray-400 hover:bg-gray-500 rounded-xl transition duration-200 hover:cursor-pointer"
-          >
-            Add Experience
-          </button>
-
-          <SaveBtn name="Save" />
+            <button className="px-4 py-2 bg-indigo-400 rounded-lg hover:bg-indigo-500 active:scale-95 transition-all text-white hover:cursor-pointer">
+              save
+            </button>
+          </div>
         </div>
       </form>
-    </div>
+
+      <hr className="mt-4 mb-4" />
+
+      <div>
+        <h1 className="text-xl text-teal-950 font-semibold">
+          Experience Details
+        </h1>
+
+        {experienceData.map((exp, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-md border border-gray-200 rounded-xl p-4 mt-4 hover:shadow-lg transition-all"
+          >
+            <div className="flex justify-between items-start">
+              <h3 className="text-lg font-semibold text-teal-700 flex items-center gap-2">
+                <i className="fa-solid fa-user-tie text-teal-600"></i>
+                {exp.position}
+              </h3>
+
+              <button
+                onClick={() => handleDel()}
+                className="text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition-all hover:cursor-pointer"
+              >
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </div>
+
+            <div className="mt-2 text-gray-700 space-y-1">
+              <p>
+                <span className="font-medium text-gray-900">Company:</span>{" "}
+                {exp.company}
+              </p>
+              <p>
+                <span className="font-medium text-gray-900">Start Date:</span>{" "}
+                {exp.startDate}
+              </p>
+              <p>
+                <span className="font-medium text-gray-900">End Date:</span>{" "}
+                {exp.endDate}
+              </p>
+              <p>
+                <span className="font-medium text-gray-900">Description:</span>{" "}
+                {exp.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

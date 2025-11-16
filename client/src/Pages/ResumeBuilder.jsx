@@ -5,16 +5,32 @@ import { Link } from "react-router-dom";
 import ResumeForm from "../components/ResumeForms/ResumeForm.jsx";
 import ResumePreview from "../components/ResumePreview/ResumePreview.jsx";
 import { usePersonalInfo } from "../Hooks/ResumeData/PersonalInfo.jsx";
+import { useProfessionalSummary } from "../Hooks/ResumeData/ProfessionalSummary.jsx";
+import { useExperience } from "../Hooks/ResumeData/Experience.jsx";
+import { useEducationInfo } from "../Hooks/ResumeData/EducationInfo.jsx";
+import { useProjectInfo } from "../Hooks/ResumeData/ProjectInfo.jsx";
+import { useSkillInfo } from "../Hooks/ResumeData/SkillInfo.jsx";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams();
   const {personalInfoData, setPersonalInfoData} = usePersonalInfo()
+  const { professionalSummaryData, setProfessionalSummaryData } = useProfessionalSummary();
+  const { experienceData, setExperienceData } = useExperience();
+  const { educationData, setEducationData } = useEducationInfo();
+  const { projectData, setProjectData } = useProjectInfo();
+  const { skillData, setSkillData } = useSkillInfo();
 
   const loadResume = () => {
     let resume = dummyResumeData.find((resume) => resume._id === resumeId);
     if (resume) {  
   
       setPersonalInfoData(resume.personal_info)
+      setProfessionalSummaryData(resume.professional_summary)
+      setExperienceData(resume.experience)
+      setEducationData(resume.education)
+      setProjectData(resume.project)
+      setSkillData(resume.skills)
+      
       document.title = resume.title;
     }
   };
