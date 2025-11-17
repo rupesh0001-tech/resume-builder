@@ -1,8 +1,8 @@
 import React from "react";
-import { useTemplate } from "../../Hooks/ResumeData/useTemplate";
 
-const ThemeSelector = () => {
-  const {template, setTemplate} = useTemplate();
+const AccentColorSelector = () => {
+  const { template, setTemplate } = useTemplate();
+
   const temps = [
     {
       name: "Classic",
@@ -23,10 +23,11 @@ const ThemeSelector = () => {
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=50&h=50&auto=format&fit=crop",
     },
     {
-        name : 'Minimal Image',
-        template : 'minimal-image',
-        image : 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60'
-    }
+      name: "Minimal Image",
+      template: "minimal-image",
+      image:
+        "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60",
+    },
   ];
 
   const [isOpen, setIsOpen] = React.useState(false);
@@ -36,7 +37,6 @@ const ThemeSelector = () => {
     setSelectedTemplate(temp);
     setIsOpen(false);
     setTemplate(temp.template);
-    
   };
 
   return (
@@ -106,4 +106,4 @@ const ThemeSelector = () => {
   );
 };
 
-export default ThemeSelector;
+export default AccentColorSelector;

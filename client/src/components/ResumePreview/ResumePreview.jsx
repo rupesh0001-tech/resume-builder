@@ -12,6 +12,7 @@ import { useEducationInfo } from '../../Hooks/ResumeData/EducationInfo.jsx';
 import { useProjectInfo } from '../../Hooks/ResumeData/ProjectInfo.jsx';
 import { useSkillInfo } from '../../Hooks/ResumeData/SkillInfo.jsx';
 import { useTemplate } from '../../Hooks/ResumeData/useTemplate.jsx';
+import { useAccentColor } from '../../Hooks/ResumeData/useAccentColor.jsx';
 
 
 const ResumePreview = () => {
@@ -32,7 +33,7 @@ const ResumePreview = () => {
   data.skills = skillData;
  
   const {template, setTemplate} = useTemplate();
-  const accentColor = "#4E61D3";
+  const {accentColor, setAccentColor} = useAccentColor();
 
   const classes = "";
   

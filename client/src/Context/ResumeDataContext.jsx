@@ -43,6 +43,8 @@ export const ResumeProvider = ({ children }) => {
         setSkillData,
         template,
         setTemplate,
+        accentColor,
+        setAccentColor,
       }}
     >
       {children}
