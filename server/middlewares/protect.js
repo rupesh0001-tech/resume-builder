@@ -1,3 +1,7 @@
+import jwt from "jsonwebtoken";
+
+
+
 const protect = (req, res, next) => {
   try {
     // check if the token is in the cookie
@@ -11,7 +15,7 @@ const protect = (req, res, next) => {
     }
 
     // check if the token is valid
-    const isAuth = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const isAuth = jwt.verify(token, process.env.JWT_SECRET);
 
     // if token is not valid
     if (!isAuth) {
@@ -19,6 +23,10 @@ const protect = (req, res, next) => {
         message: "Somthing went wrong please login again",
       });
     }
+
+
+    // take out the user from the token
+    req.user = isAuth;
 
     // if valid next 
     next();
@@ -29,3 +37,6 @@ const protect = (req, res, next) => {
     });
   }
 };
+
+
+export default protect

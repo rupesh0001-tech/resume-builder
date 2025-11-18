@@ -8,7 +8,8 @@ import cookieParser from 'cookie-parser';
 
 // import files
 import ConnectDB from './db/db.js';
-import userRoutes from './routes/user.auth.routes.js';
+import authRoutes from './routes/user.auth.routes.js';
+import userRoutes from './routes/user.profile.routes.js';
 
 // init server
 const app = express();
@@ -24,7 +25,8 @@ app.use(cookieParser());
 app.get('/', (req, res) => res.send('Hello World!'));
 
 //routes 
-app.use('/api/auth/users', userRoutes);
+app.use('/api/auth/users', authRoutes);
+app.use('/api/users', userRoutes);
 
 
 app.listen(port, (req, res) => {
