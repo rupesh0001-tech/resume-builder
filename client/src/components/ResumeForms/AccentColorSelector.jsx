@@ -1,103 +1,66 @@
 import React from "react";
+import { useAccentColor } from "../../Hooks/ResumeData/useAccentColor";
+
 
 const AccentColorSelector = () => {
-  const { template, setTemplate } = useTemplate();
+  const { accentColor, setAccentColor } = useAccentColor();
 
-  const temps = [
-    {
-      name: "Classic",
-      template: "classic",
-      image:
-        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=50",
-    },
-    {
-      name: "Modern",
-      template: "modern",
-      image:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=50",
-    },
-    {
-      name: "Minimal",
-      template: "minimal",
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=50&h=50&auto=format&fit=crop",
-    },
-    {
-      name: "Minimal Image",
-      template: "minimal-image",
-      image:
-        "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60",
-    },
+  const accentColors = [
+    { name: "blue", code: "#3b82f6" },
+    { name: "green", code: "#22c55e" },
+    { name: "red", code: "#ef4444" },
+    { name: "yellow", code: "#f59e0b" },
+    { name: "purple", code: "#8b5cf6" },
+    { name: "orange", code: "#f97316" },
+    { name: "teal", code: "#14b8a6" },
+    {name:'black', code:'#000000'},
   ];
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedTemplate, setSelectedTemplate] = React.useState(temps[0]);
 
-  const handleSelect = (temp) => {
-    setSelectedTemplate(temp);
+  const selectedColor =
+    accentColors.find(c => c.code === accentColor) || accentColors[0];
+
+  const handleSelect = (color) => {
+    setAccentColor(color.code);
     setIsOpen(false);
-    setTemplate(temp.template);
   };
 
   return (
-    <div className="flex flex-col w-15 text-sm relative py-2 cursor-pointer ">
+    <div className="flex flex-col w-20 text-sm relative py-2 cursor-pointer">
+      
+      {/* Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="group flex items-center justify-between w-30 text-left px-2 py-2 border rounded bg-white text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none "
+        className="flex items-center justify-between w-full px-3 py-2.5 border rounded bg-white text-gray-700 border-gray-300 shadow-sm"
       >
         <div className="flex items-center gap-2">
-          <img
-            className="w-6 h-6 rounded-full"
-            src={selectedTemplate.image}
-            alt={selectedTemplate.name}
-          />
-          <span>{selectedTemplate.name}</span>
+          <div
+            className="w-5 h-5 rounded-full"
+            style={{ backgroundColor: selectedColor.code }}
+          ></div>
+          <span>{selectedColor.name}</span>
         </div>
-        <svg
-          width="11"
-          height="17"
-          viewBox="0 0 11 17"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9.92546 6L5.68538 1L1.44531 6"
-            stroke="#6B7280"
-            strokeOpacity="0.7"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M1.44564 11L5.68571 16L9.92578 11"
-            stroke="#6B7280"
-            strokeOpacity="0.7"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+
       </button>
 
+      {/* Dropdown */}
       {isOpen && (
-        <ul className="w-30  bg-white border border-gray-300 rounded shadow-md mt-1 py-2 z-1000  absolute top-12">
-          {temps.map((temp) => (
+        <ul className="absolute top-14 w-48 bg-white border border-gray-300 rounded shadow-md  z-50">
+          {accentColors.map((color) => (
             <li
-              key={temp.name}
-              className={`px-2 py-2 flex items-center gap-2 cursor-pointer ${
-                temp.name === selectedTemplate.name
-                  ? "bg-indigo-500 text-white"
-                  : "hover:bg-indigo-500 hover:text-white"
-              }`}
-              onClick={() => handleSelect(temp)}
+              key={color.name}
+              className={`px-3 py-2 flex items-center gap-2 cursor-pointer 
+                ${accentColor === color.code ? "bg-gray-200" : "hover:bg-gray-100"}
+              `}
+              onClick={() => handleSelect(color)}
             >
-              <img
-                className="w-6 h-6 rounded-full"
-                src={temp.image}
-                alt={temp.name}
-              />
-              <span>{temp.name}</span>
+              <div
+                className="w-5 h-5 rounded-full"
+                style={{ backgroundColor: color.code }}
+              ></div>
+              <span>{color.name}</span>
             </li>
           ))}
         </ul>

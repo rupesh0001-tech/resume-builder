@@ -44,40 +44,12 @@ const ThemeSelector = () => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="group flex items-center justify-between w-30 text-left px-2 py-2 border rounded bg-white text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none "
+        className="group flex items-center justify-between w-18 text-left px-2.5 py-2.5 border rounded bg-white text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none "
       >
         <div className="flex items-center gap-2">
-          <img
-            className="w-6 h-6 rounded-full"
-            src={selectedTemplate.image}
-            alt={selectedTemplate.name}
-          />
           <span>{selectedTemplate.name}</span>
         </div>
-        <svg
-          width="11"
-          height="17"
-          viewBox="0 0 11 17"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9.92546 6L5.68538 1L1.44531 6"
-            stroke="#6B7280"
-            strokeOpacity="0.7"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M1.44564 11L5.68571 16L9.92578 11"
-            stroke="#6B7280"
-            strokeOpacity="0.7"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        
       </button>
 
       {isOpen && (
@@ -92,11 +64,6 @@ const ThemeSelector = () => {
               }`}
               onClick={() => handleSelect(temp)}
             >
-              <img
-                className="w-6 h-6 rounded-full"
-                src={temp.image}
-                alt={temp.name}
-              />
               <span>{temp.name}</span>
             </li>
           ))}

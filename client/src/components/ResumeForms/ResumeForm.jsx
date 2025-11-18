@@ -8,6 +8,7 @@ import { useState } from "react";
 import BackFrontBtns from "./BackFrontBtns";
 import ProfessionalSummary from "./ProfessionalSummary";
 import ThemeSelector from "./ThemeSelector";
+import AccentColorSelector from "./AccentColorSelector";
 
 const ResumeForm = () => {
   let [formTab, setFormTab] = useState(1);
@@ -47,11 +48,15 @@ const ResumeForm = () => {
 
   return (
     <div className="resume-form-wrapper">
-      <div className="flex justify-between items-center w-full ">
-        <ThemeSelector />
-        <BackFrontBtns setFormTab={setFormTab} formTab={formTab} />
+      <div className="flex justify-between items-center w-full  ">
         
+        <div className="flex justify-between gap-4">
+          <ThemeSelector />
+          <AccentColorSelector />
+        </div>
+        <BackFrontBtns setFormTab={setFormTab} formTab={formTab} />
       </div>
+
       <hr className="my-4 text-gray-500" />
       {tabs.map((tab, idx) => {
         return (
