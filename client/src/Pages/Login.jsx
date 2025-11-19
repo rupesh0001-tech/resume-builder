@@ -4,13 +4,14 @@ import React, { useState } from 'react'
 const Login = () => {
     const query = new URLSearchParams(window.location.search);
     const URLstate = query.get('state');
-    const [state, setState] = React.useState( URLstate  ||"login")
-
-    const [formData, setFormData] = React.useState({
+    const intiData = {
         name: '',
         email: '',
         password: ''
-    })
+    }
+    const [state, setState] = React.useState( URLstate  ||"login")
+
+    const [formData, setFormData] = React.useState(intiData)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
