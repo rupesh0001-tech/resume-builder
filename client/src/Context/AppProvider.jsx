@@ -1,12 +1,13 @@
-import React from 'react'
-import { ResumeProvider } from './ResumeDataContext.jsx'
+import React from "react";
+import { ResumeProvider } from "./ResumeDataContext.jsx";
+import { AuthProvider } from "./AuthProvider.jsx";
 
-const AppProvider = ({children}) => {
+const AppProvider = ({ children }) => {
   return (
-    <ResumeProvider>
-      {children}
-    </ResumeProvider>
-  )
-}
+    <AuthProvider>
+      <ResumeProvider>{children}</ResumeProvider>
+    </AuthProvider>
+  );
+};
 
-export default AppProvider
+export default AppProvider;
