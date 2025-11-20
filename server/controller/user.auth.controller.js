@@ -109,8 +109,31 @@ export const userLogin = async (req, res) => {
   }
 };
 
-//get user Data
+//logout Route
 
+export const userLogout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      path: "/", // MUST match
+      sameSite: "lax", // MUST match
+      secure: false, // MUST match
+      httpOnly: false, // MUST match
+    });
+
+    return res.status(200).json({ message: "Logged out" });
+    res.status(200).json({
+      message: "User logged out successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message:
+        " error while logging out the user, Please try again after some time ",
+      error: error.message,
+    });
+  }
+};
+
+//get user Data
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");

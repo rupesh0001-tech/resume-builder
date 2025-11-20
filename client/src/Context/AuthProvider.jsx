@@ -1,11 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext();  // IMPORTANT
+
 export const AuthProvider = ({ children }) => {
-  let [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
@@ -16,14 +16,16 @@ export const AuthProvider = ({ children }) => {
         );
         setUser(currUser.data);
       } catch (error) {
-        toast.error(error.response.data.message);
+        // user not logged in
+      } finally {
+        setLoading(false);
       }
-    }
+    };
     getUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, loading }}>
       {children}
     </AuthContext.Provider>
   );
