@@ -9,7 +9,7 @@ const protect = (req, res, next) => {
 
     // if token is not in the cookie
     if (!token) {
-      return res.json({
+      return res.status(401).json({
         message: "You are not logged in",
       });
     }

@@ -3,20 +3,15 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { getUserData } from "../../Hooks/UserData/UserData";
 
-
 const Hero = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const { user, setUser, loading } = getUserData();
-  const [islogin, setIslogin] = useState(false);
 
-  // Avoid UI flickering until user is loaded
-  useEffect(() => {
-    if (!loading) {
-      setIslogin(!!user);
-    }
-  }, [user, loading]);
+  if (loading) {
+    return <></>; // or a skeleton loader
+  }
 
-
+  // Logout Handler
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -24,14 +19,13 @@ const Hero = () => {
         {},
         { withCredentials: true }
       );
-
-      setUser(null);
-      setIslogin(false);
+      setUser(null); // clear user context
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Logos
   const logos = [
     "https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg",
     "https://saasly.prebuiltui.com/assets/companies-logo/framer.svg",
@@ -40,13 +34,12 @@ const Hero = () => {
     "https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg",
   ];
 
-  // Show nothing while loading to avoid flicker
+  // Show nothing while loading user
   if (loading) return <></>;
 
   return (
     <>
       <div className="min-h-screen pb-20">
-
         {/* Navbar */}
         <nav className="z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40 text-sm">
           <a href="/">
@@ -54,15 +47,28 @@ const Hero = () => {
           </a>
 
           <div className="hidden md:flex items-center text-md font-medium gap-8 text-slate-800">
-            <a href="#" className="hover:text-indigo-600">Home</a>
-            <a href="#features" className="hover:text-indigo-600">Features</a>
-            <a href="#testimonials" className="hover:text-indigo-600">Testimonials</a>
-            <a href="#cta" className="hover:text-indigo-600">Contact</a>
+            <a href="#" className="hover:text-indigo-600">
+              Home
+            </a>
+            <a href="#features" className="hover:text-indigo-600">
+              Features
+            </a>
+            <a href="#testimonials" className="hover:text-indigo-600">
+              Testimonials
+            </a>
+            <a href="#cta" className="hover:text-indigo-600">
+              Contact
+            </a>
           </div>
 
-          {islogin ? (
+          {/* LOGIN / LOGOUT UI WITHOUT islogin */}
+          {/* LOGIN / LOGOUT UI */}
+          {user ? (
             <div className="flex justify-center items-center gap-4 ">
-              <p>Hello, <span className="font-semibold">{user?.name}</span></p>
+              <p>
+                Hello, <span className="font-semibold">{user.name}</span>
+                { console.log(user)} 
+              </p>
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 text-md font-medium bg-red-400 border border-gray-400 rounded-2xl hover:scale-105"
@@ -73,13 +79,14 @@ const Hero = () => {
           ) : (
             <div className="flex gap-2">
               <Link
-                to="/app?state=register"
+                to="/register"
                 className="hidden md:block px-6 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-full text-white"
               >
                 Get started
               </Link>
+
               <Link
-                to="/app?state=login"
+                to="/login"
                 className="hidden md:block px-6 py-2 border rounded-full text-slate-700 hover:bg-slate-50"
               >
                 Login
@@ -110,10 +117,19 @@ const Hero = () => {
             menuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <a href="/" className="text-white">Home</a>
-          <a href="/products" className="text-white">Products</a>
-          <a href="/stories" className="text-white">Stories</a>
-          <a href="/pricing" className="text-white">Pricing</a>
+          <a href="/" className="text-white">
+            Home
+          </a>
+          <a href="/products" className="text-white">
+            Products
+          </a>
+          <a href="/stories" className="text-white">
+            Stories
+          </a>
+          <a href="/pricing" className="text-white">
+            Pricing
+          </a>
+
           <button
             onClick={() => setMenuOpen(false)}
             className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-md p-2"
@@ -126,7 +142,7 @@ const Hero = () => {
         <div className="relative flex flex-col items-center justify-center px-4 md:px-16 lg:px-24 xl:px-40 text-black">
           <div className="absolute top-28 xl:top-10 -z-10 left-1/4 size-72 sm:size-96 xl:size-120 bg-indigo-300 blur-[100px] opacity-30"></div>
 
-          {/* Avatars + Stars */}
+          {/* Avatars */}
           <div className="flex items-center mt-24">
             <div className="flex -space-x-3 pr-3">
               {[
@@ -200,13 +216,17 @@ const Hero = () => {
             </Link>
           </div>
 
-          <p className="py-6 text-slate-600 mt-14">
-            Trusted by leading brands
-          </p>
+          <p className="py-6 text-slate-600 mt-14">Trusted by leading brands</p>
 
           <div className="flex flex-wrap justify-between max-sm:justify-center gap-6 max-w-3xl w-full mx-auto py-4">
             {logos.map((logo, index) => (
-              <img key={index} loading="lazy" src={logo} alt="logo" className="h-6 w-auto" />
+              <img
+                key={index}
+                loading="lazy"
+                src={logo}
+                alt="logo"
+                className="h-6 w-auto"
+              />
             ))}
           </div>
         </div>

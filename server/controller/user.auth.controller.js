@@ -96,8 +96,11 @@ export const userLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
+    
+    checkUser.password = undefined;
     // send response
     res.status(200).json({
+      user : checkUser,
       message: "User logged in successfully",
     });
   } catch (error) {
@@ -137,11 +140,6 @@ export const userLogout = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
-    if (!user) {
-      return res.status(400).json({
-        message: " User is not registered ",
-      });
-    }
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({

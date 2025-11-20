@@ -1,27 +1,36 @@
-import React from 'react'
-import { Routes, Route, Outlet } from 'react-router-dom'
-import Home from './Pages/Home'
-import Layout from './Pages/Layout'
-import Dashboard from './Pages/Dashboard'
-import ResumeBuilder from './Pages/ResumeBuilder'
+import React from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
+import Home from "./Pages/Home";
+import Layout from "./Pages/Layout";
+import Dashboard from "./Pages/Dashboard";
+import ResumeBuilder from "./Pages/ResumeBuilder";
+import ProtectedRoute from "./Routes/ProtectedRoute";
 
-import Login from './Pages/Login'
+import Login from "./Pages/Login";
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='app' element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path='builder/:resumeId' element={<ResumeBuilder />} />
+        <Route path="/" element={<Home />} />
+
+        <Route
+          path="app"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Layout />{" "}
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={ <ProtectedRoute> <Dashboard /></ProtectedRoute>} />
+          <Route path="builder/:resumeId" element={<ResumeBuilder />} />
         </Route>
-        
-        <Route path='login' element={<Login />} />
-        
+
+        <Route path="login" element={<Login />} />
       </Routes>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,27 +1,29 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
-export const AuthContext = createContext();  // IMPORTANT
+export const AuthContext = createContext(null);   // IMPORTANT EXPORT
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getUser = async () => {
+    const fetchUser = async () => {
       try {
-        const currUser = await axios.get(
+        const res = await axios.get(
           `${import.meta.env.VITE_BASE_URL}/api/users/profile`,
           { withCredentials: true }
         );
-        setUser(currUser.data);
+        setUser(res.data);
+      
       } catch (error) {
-        // user not logged in
+        setUser(null);
       } finally {
         setLoading(false);
       }
     };
-    getUser();
+
+    fetchUser();
   }, []);
 
   return (

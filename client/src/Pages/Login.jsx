@@ -3,7 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
+import { AuthContext } from "../Context/AuthProvider";
+
 const Login = () => {
+  const { setUser } = React.useContext(AuthContext);
   const navigate = useNavigate();
   const query = new URLSearchParams(window.location.search);
   const URLstate = query.get("state");
@@ -28,6 +31,7 @@ const Login = () => {
         }
       );
       toast.success("login successeful ");
+      setUser(res.data.user);
       navigate("/");
     } catch (error) {
       console.log(error);
