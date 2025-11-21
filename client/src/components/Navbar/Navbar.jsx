@@ -100,7 +100,7 @@ const Navbar = () => {
 
       {/* 🔵 MOBILE MENU (Same animation as UI #1) */}
       <div
-        className={`fixed inset-0 z-[100] bg-white/60 backdrop-blur text-slate-800 flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 ${
+        className={`fixed inset-0 z-100 bg-white/60 backdrop-blur text-slate-800 flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 ${
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

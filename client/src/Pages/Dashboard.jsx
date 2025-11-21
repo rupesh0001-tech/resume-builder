@@ -170,7 +170,7 @@ const Dashboard = () => {
                 <button onClick={() => {
                   setFormTitle('');
 
-                }} className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+                }} className=' bg-amber-300 py-1 px-2 w-40 border border-blue-950 cursor-pointer'>
                   Create Resume
                 </button>
               </div>
@@ -225,7 +225,7 @@ const Dashboard = () => {
                 <button onClick={() => {
                   setFormTitle('');
 
-                }} className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+                }} className=' bg-amber-300 py-1 px-2 w-40 border border-blue-950 cursor-pointer'>
                   Edit Resume
                 </button>
               </div>
@@ -262,7 +262,7 @@ const Dashboard = () => {
                 <button onClick={() => {
                   setFormTitle('');
 
-                }} className=' bg-amber-300 py-1 px-2 w-40 border-1 border-blue-950 cursor-pointer'>
+                }} className=' bg-amber-300 py-1 px-2 w-40 border border-blue-950 cursor-pointer'>
                   Create Resume
                 </button>
               </div>
