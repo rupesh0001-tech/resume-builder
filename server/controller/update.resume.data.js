@@ -5,11 +5,12 @@ import Resume from "../models/resume.model.js";
 // CREATE RESUME
 // ------------------------------------------------------------
 export const createResume = async (req, res) => {
+  
   try {
     const { title } = req.body;
 
     const resume = await Resume.create({
-      userId: req.user._id,
+      userId: req.user.id,
       title,
       personal_info: {},
       skills: [],

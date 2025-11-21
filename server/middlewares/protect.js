@@ -27,6 +27,7 @@ const protect = (req, res, next) => {
 
     // take out the user from the token
     req.user = isAuth;
+    
 
     // if valid next 
     next();

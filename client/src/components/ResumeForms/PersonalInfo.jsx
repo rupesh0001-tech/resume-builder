@@ -5,25 +5,28 @@ import { useState } from "react";
 import SaveBtn from "./SaveBtn";
 import ProfileImageUploader from "./ProfileImageUploader";
 import { usePersonalInfo } from "../../Hooks/ResumeData/PersonalInfo.jsx";
+import axios from "axios";
 
 const PersonalInfo = () => {
   const { personalInfoData, setPersonalInfoData } = usePersonalInfo();
-  
+
   const handelChange = (e) => {
     setPersonalInfoData({
       ...personalInfoData,
       [e.target.name]: e.target.value,
-      
     });
-    
-  }
-
-  
+  };
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    
-  }
+    axios
+      .patch(
+        `${import.meta.env.VITE_BASE_URL}/api/resume/personalInfo`,
+        personalInfoData,
+        { withCredentials: true }
+      )
+      .then((res) => console.log(res));
+  };
 
   return (
     <div className="flex flex-col  ">
@@ -39,7 +42,7 @@ const PersonalInfo = () => {
       </div>
 
       {/* form Data  */}
-      <form  onSubmit={handelSubmit}>
+      <form onSubmit={handelSubmit}>
         <div className="formData flex flex-col gap-6">
           <ProfileImageUploader />
           <FormInput
@@ -112,10 +115,7 @@ const PersonalInfo = () => {
             placeholder="Enter your profession"
           />
 
-          
-
           <SaveBtn name="Save" />
-
         </div>
       </form>
     </div>
