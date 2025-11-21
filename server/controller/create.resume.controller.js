@@ -1,4 +1,5 @@
-import Resume from "../model/resume.model.js";
+import Resume from '../models/resume.model.js';
+
 
 // create resume
 export const createResume = async (req, res) => {

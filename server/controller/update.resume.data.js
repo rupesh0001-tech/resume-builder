@@ -1,4 +1,4 @@
-import Resume from "../model/resume.model.js";
+import Resume from "../models/resume.model.js";
 
 
 // ------------------------------------------------------------
