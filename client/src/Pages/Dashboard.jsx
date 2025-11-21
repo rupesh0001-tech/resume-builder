@@ -2,10 +2,20 @@ import React, { useEffect, useState } from 'react'
 import Title from './../components/TItle/Title.jsx';
 import { dummyResumeData } from '../assets/assets.js';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthProvider';
+import { useContext } from 'react';
+import ResumeForm from '../components/ResumeForms/ResumeForm.jsx';
+import ResumePreview from '../components/ResumePreview/ResumePreview.jsx';
+import { usePersonalInfo } from '../Hooks/ResumeData/PersonalInfo.jsx';
+import { useProfessionalSummary } from '../Hooks/ResumeData/ProfessionalSummary.jsx';
+import { useExperience } from '../Hooks/ResumeData/Experience.jsx';
+import { useEducationInfo } from '../Hooks/ResumeData/EducationInfo.jsx';
+import { useProjectInfo } from '../Hooks/ResumeData/ProjectInfo.jsx';
+import { useSkillInfo } from '../Hooks/ResumeData/SkillInfo.jsx';
 
 const Dashboard = () => {
 
-
+  const {user} = useContext(AuthContext);
   const colors = [
     "#1E3A8A", // deep royal blue  
     "#C62828", // strong crimson red  
@@ -62,7 +72,7 @@ const Dashboard = () => {
 
     <>
       <div className="dashboard px-30 py-5 duration-150 ease-in-out  ">
-        <Title title={'Hello, Rupesh'} des={'Create or Enchance Your Resume '} />
+        <Title title={`Hello, ${user.name}`} des={'Create or Enchance Your Resume '} />
         <div className="flex  gap-8 ">
 
           <button onClick={() => setCreateResume(true)} className=' bg-[#f7eeee] h-46 w-38 px-5 py-4 shadow cursor-pointer hover:shadow-xl rounded-3xl hover:border-2 border-dotted border-blue-500 ease-in-out transition-all duration-100 ' >

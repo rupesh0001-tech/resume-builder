@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import Resume from './resume.model.js'
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,6 +17,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+     resumes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Resume"
+    }]
   },
   {
     timestamps: true,
