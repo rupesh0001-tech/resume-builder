@@ -6,9 +6,14 @@ import SaveBtn from "./SaveBtn";
 import ProfileImageUploader from "./ProfileImageUploader";
 import { usePersonalInfo } from "../../Hooks/ResumeData/PersonalInfo.jsx";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
-const PersonalInfo = () => {
+
+const PersonalInfo = ({setFormTab}) => {
   const { personalInfoData, setPersonalInfoData } = usePersonalInfo();
+  let { resumeId } = useParams();
+  let id = resumeId;
 
   const handelChange = (e) => {
     setPersonalInfoData({
@@ -20,12 +25,16 @@ const PersonalInfo = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
     axios
-      .patch(
-        `${import.meta.env.VITE_BASE_URL}/api/resume/personalInfo`,
+      .post(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/personal-info`,
         personalInfoData,
         { withCredentials: true }
       )
-      .then((res) => console.log(res));
+      .then((res) => {
+        toast.success(" personal info updated successfully "),
+        setFormTab(2);
+      } 
+    );
   };
 
   return (

@@ -15,6 +15,7 @@ import { useSkillInfo } from "../Hooks/ResumeData/SkillInfo.jsx";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
+
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const colors = [
@@ -37,7 +38,12 @@ const Dashboard = () => {
   };
 
   const addData = async () => {
-    setResumedata(dummyResumeData);
+    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/resumes/my-resumes`, { withCredentials: true });
+    setResumedata(
+      res.data
+    )
+    console.log(res.data);
+    
   };
 
   const handleFileChange = (e) => {

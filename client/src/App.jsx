@@ -5,12 +5,14 @@ import Layout from "./Pages/Layout";
 import Dashboard from "./Pages/Dashboard";
 import ResumeBuilder from "./Pages/ResumeBuilder";
 import ProtectedRoute from "./Routes/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 import Login from "./Pages/Login";
 
 const App = () => {
   return (
     <>
+    <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
 

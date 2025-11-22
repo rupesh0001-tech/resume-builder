@@ -43,7 +43,7 @@ router.delete('/:id', protect, deleteResume);
 // ------------------------------------------------------------
 // PERSONAL INFO
 // ------------------------------------------------------------
-router.patch('/:id/personal-info', protect, updatePersonalInfo);
+router.post('/:id/personal-info', protect, updatePersonalInfo);
 
 
 // ------------------------------------------------------------

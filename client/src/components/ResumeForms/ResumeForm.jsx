@@ -17,7 +17,7 @@ const ResumeForm = () => {
     {
       id: 1,
       title: "Personal Info",
-      component: <PersonalInfo />,
+      component: <PersonalInfo setFormTab={setFormTab} />,
     },
     {
       id: 2,

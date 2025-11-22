@@ -1,18 +1,26 @@
 import Resume from "../models/resume.model.js";
 
-
 // ------------------------------------------------------------
 // CREATE RESUME
 // ------------------------------------------------------------
 export const createResume = async (req, res) => {
-  
   try {
     const { title } = req.body;
+    console.log(req.user)
 
     const resume = await Resume.create({
       userId: req.user.id,
       title,
-      personal_info: {},
+      personal_info: {
+        full_name: 'Unknown',
+        email: "",
+        phone: "",
+        location: "",
+        linkedin: "",
+        website: "",
+        profession: "",
+        image: '',
+      },
       skills: [],
       experience: [],
       education: [],
@@ -24,23 +32,27 @@ export const createResume = async (req, res) => {
       message: "Resume created successfully",
     });
   } catch (error) {
-    res.status(500).json({ message: "Error creating resume", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error creating resume", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // GET ALL RESUMES OF USER
 // ------------------------------------------------------------
 export const getMyResumes = async (req, res) => {
   try {
-    const resumes = await Resume.find({ userId: req.user._id }).sort({ updatedAt: -1 });
+    const resumes = await Resume.find({ userId: req.user.id });
+    
     res.status(200).json(resumes);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching resumes", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching resumes", error: error.message });
+    
   }
 };
-
 
 // ------------------------------------------------------------
 // GET SINGLE RESUME
@@ -55,12 +67,12 @@ export const getSingleResume = async (req, res) => {
     if (!resume) return res.status(404).json({ message: "Resume not found" });
 
     res.status(200).json(resume);
-
   } catch (error) {
-    res.status(500).json({ message: "Error fetching resume", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching resume", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // DELETE RESUME
@@ -75,31 +87,35 @@ export const deleteResume = async (req, res) => {
     if (!resume) return res.status(404).json({ message: "Resume not found" });
 
     res.status(200).json({ message: "Resume deleted successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error deleting resume", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error deleting resume", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE PERSONAL INFO
 // ------------------------------------------------------------
 export const updatePersonalInfo = async (req, res) => {
   try {
+     
     const resume = await Resume.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
+      { _id: req.params.id, userId: req.user.id },
       { personal_info: req.body },
-      { new: true }
+      {new : true }
     );
+    
 
-    res.status(200).json({ resume, message: "Personal info updated successfully" });
-
+    res
+      .status(200)
+      .json({ resume, message: "Personal info updated successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error updating personal info", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating personal info", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE PROFESSIONAL SUMMARY
@@ -116,12 +132,12 @@ export const updateProfessionalSummary = async (req, res) => {
       resume,
       message: "Professional summary updated successfully",
     });
-
   } catch (error) {
-    res.status(500).json({ message: "Error updating summary", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating summary", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE SKILLS
@@ -138,12 +154,12 @@ export const updateSkills = async (req, res) => {
       resume,
       message: "Skills updated successfully",
     });
-
   } catch (error) {
-    res.status(500).json({ message: "Error updating skills", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating skills", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // ADD EXPERIENCE
@@ -160,12 +176,12 @@ export const addExperience = async (req, res) => {
       resume,
       message: "Experience added successfully",
     });
-
   } catch (error) {
-    res.status(500).json({ message: "Error adding experience", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error adding experience", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE SPECIFIC EXPERIENCE
@@ -184,12 +200,12 @@ export const updateExperience = async (req, res) => {
       resume,
       message: "Experience updated successfully",
     });
-
   } catch (error) {
-    res.status(500).json({ message: "Error updating experience", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating experience", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // DELETE EXPERIENCE
@@ -208,12 +224,12 @@ export const deleteExperience = async (req, res) => {
       resume,
       message: "Experience deleted successfully",
     });
-
   } catch (error) {
-    res.status(500).json({ message: "Error deleting experience", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error deleting experience", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // ADD EDUCATION
@@ -227,12 +243,12 @@ export const addEducation = async (req, res) => {
     );
 
     res.status(200).json({ resume, message: "Education added successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error adding education", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error adding education", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE EDUCATION
@@ -248,12 +264,12 @@ export const updateEducation = async (req, res) => {
     );
 
     res.status(200).json({ resume, message: "Education updated successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error updating education", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating education", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // DELETE EDUCATION
@@ -269,12 +285,12 @@ export const deleteEducation = async (req, res) => {
     );
 
     res.status(200).json({ resume, message: "Education deleted successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error deleting education", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error deleting education", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // ADD PROJECT
@@ -288,12 +304,12 @@ export const addProject = async (req, res) => {
     );
 
     res.status(200).json({ resume, message: "Project added successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error adding project", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error adding project", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE PROJECT
@@ -309,12 +325,12 @@ export const updateProject = async (req, res) => {
     );
 
     res.status(200).json({ resume, message: "Project updated successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error updating project", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating project", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // DELETE PROJECT
@@ -330,12 +346,12 @@ export const deleteProject = async (req, res) => {
     );
 
     res.status(200).json({ resume, message: "Project deleted successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error deleting project", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error deleting project", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE TEMPLATE
@@ -349,12 +365,12 @@ export const updateTemplate = async (req, res) => {
     );
 
     res.status(200).json({ resume, message: "Template updated successfully" });
-
   } catch (error) {
-    res.status(500).json({ message: "Error updating template", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating template", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // UPDATE ACCENT COLOR
@@ -367,13 +383,15 @@ export const updateAccentColor = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ resume, message: "Accent color updated successfully" });
-
+    res
+      .status(200)
+      .json({ resume, message: "Accent color updated successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error updating accent color", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating accent color", error: error.message });
   }
 };
-
 
 // ------------------------------------------------------------
 // PUBLISH / UNPUBLISH RESUME
@@ -386,9 +404,12 @@ export const updatePublicStatus = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ resume, message: "Public status updated successfully" });
-
+    res
+      .status(200)
+      .json({ resume, message: "Public status updated successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error updating public status", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating public status", error: error.message });
   }
 };
