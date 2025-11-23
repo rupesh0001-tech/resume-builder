@@ -57,7 +57,6 @@ export const getMyResumes = async (req, res) => {
 // GET SINGLE RESUME
 // ------------------------------------------------------------
 export const getSingleResume = async (req, res) => {
-  
   try {
     const resume = await Resume.findOne({
       _id: req.params.id,
@@ -137,33 +136,71 @@ export const updateProfessionalSummary = async (req, res) => {
   }
 };
 
-// ------------------------------------------------------------
 // UPDATE SKILLS
-// ------------------------------------------------------------
 export const updateSkills = async (req, res) => {
   try {
+    console.log("REQ BODY:", req.body);
+
     const resume = await Resume.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
-      { skills: req.body.skills },
+      { _id: req.params.id, userId: req.user.id },
+      { skills: req.body.skills }, // expects array
       { new: true }
     );
 
+    if (!resume) {
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
     res.status(200).json({
       resume,
-      message: "Skills updated successfully",
+      message: "Skills updated successfully"
     });
+
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error updating skills", error: error.message });
+    res.status(500).json({
+      message: "Error updating skills",
+      error: error.message
+    });
   }
 };
+
+
+
+
+// DELETE SKILL
+export const deleteSkill = async (req, res) => {
+  try {
+    const { id, skill } = req.params;
+
+    const resume = await Resume.findOneAndUpdate(
+      { _id: id, userId: req.user.id },
+      { $pull: { skills: skill } },
+      { new: true }
+    );
+
+    if (!resume) {
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
+    res.status(200).json({
+      resume,
+      message: "Skill deleted successfully"
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Error deleting skill",
+      error: error.message
+    });
+  }
+};
+
+
 
 // ------------------------------------------------------------
 // ADD EXPERIENCE
 // ------------------------------------------------------------
 export const addExperience = async (req, res) => {
-  
   try {
     const { experience } = req.body; // <--- get array
 
@@ -210,7 +247,7 @@ export const deleteExperience = async (req, res) => {
       .json({ message: "Error deleting experience", error: error.message });
   }
 
-  console.log
+  console.log;
 };
 
 // ------------------------------------------------------------
@@ -218,7 +255,6 @@ export const deleteExperience = async (req, res) => {
 // ------------------------------------------------------------
 export const addEducation = async (req, res) => {
   try {
-    
     const resume = await Resume.findOneAndUpdate(
       { _id: req.params.id, userId: req.user.id },
       { $push: { education: req.body.education } },

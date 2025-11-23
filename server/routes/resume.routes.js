@@ -8,6 +8,7 @@ import {
   updatePersonalInfo,
   updateProfessionalSummary,
   updateSkills,
+  deleteSkill,
 
   addExperience,
   deleteExperience,
@@ -53,8 +54,9 @@ router.post('/:id/professional-summary', protect, updateProfessionalSummary);
 
 // ------------------------------------------------------------
 // SKILLS
-// ------------------------------------------------------------
-router.patch('/:id/skills', protect, updateSkills);
+router.put('/:id/skills', protect, updateSkills);
+router.delete('/:id/skills/:skill', protect, deleteSkill);  // FIXED
+
 
 
 // ------------------------------------------------------------

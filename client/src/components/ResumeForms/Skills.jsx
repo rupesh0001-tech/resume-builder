@@ -2,32 +2,58 @@ import React from "react";
 import FormInput from "../FormInput/FormInput";
 import { useState } from "react";
 import { useSkillInfo } from "../../Hooks/ResumeData/SkillInfo";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useResumeId } from "../../Hooks/ResumeId/useResumeId";
 
-const skills = () => {
+const Skills = () => {
+  const { currentResumeId } = useResumeId();
+  const id = currentResumeId;
+
   const { skillData, setSkillData } = useSkillInfo();
-  let [data, setData] = useState("");
+  const [data, setData] = useState("");
 
-  const handleChange = (e) => {
-    setData(e.target.value);
-  };
+  const handleChange = (e) => setData(e.target.value);
 
   const handleAdd = () => {
+    if (!data.trim()) return;
     setSkillData([...skillData, data]);
     setData("");
-    console.log("Added:", skillData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    await axios
+      .put(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/skills`,
+        { skills: skillData }, // array of strings
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        toast.success("Skills updated successfully");
+      })
+      .catch((err) => console.log(err));
   };
 
-  const handleDel = () => {
-    setSkillData((prev) => [...prev.slice(0, prev.length - 2)]);
+  const handleDel = async (skill) => {
+    axios
+      .delete(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/skills/${skill}`,
+        { withCredentials: true }
+      )
+      .then(() => {
+        setSkillData((prev) => prev.filter((s) => s !== skill));
+        toast.success("Skill deleted");
+      })
+      .catch((err) => console.log(err));
   };
+
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <form onSubmit={handleSubmit}>
-        <div className="w-50 flex gap-4 items-end ">
+        <div className="w-50 flex gap-4 items-end">
           <FormInput
             name="skills"
             label="Add Skill"
@@ -39,8 +65,8 @@ const skills = () => {
           />
 
           <button
-            type="button "
-            className="bg-teal-950 hover:bg-teal-800 text-white font-semibold flex justify-center items-center rounded h-8 py-5 px-4 hover:cursor-pointer "
+            type = "submit"
+            className="bg-teal-950 hover:bg-teal-800 text-white font-semibold flex justify-center items-center rounded h-8 py-5 px-4"
             onClick={handleAdd}
           >
             Add
@@ -52,17 +78,13 @@ const skills = () => {
         {skillData.map((skill, index) => (
           <div
             key={index}
-            className="px-3 py-1 bg-gray-300 rounded-2xl flex items-center gap-2
-      shadow-sm hover:shadow-md transition-all duration-200
-      hover:scale-[1.03]"
+            className="px-3 py-1 bg-gray-300 rounded-2xl flex items-center gap-2 shadow-sm hover:shadow-md hover:scale-[1.03]"
           >
-            {/* Skill Text */}
             <span className="text-sm font-medium text-gray-800">{skill}</span>
 
-            {/* Delete Button */}
             <button
-              onClick={handleDel}
-              className="text-gray-600 hover:text-red-600 transition-all duration-200 hover:cursor-pointer"
+              onClick={() => handleDel(skill)}
+              className="text-gray-600 hover:text-red-600 transition-all"
             >
               <i className="fa-solid fa-x text-[10px]"></i>
             </button>
@@ -73,4 +95,4 @@ const skills = () => {
   );
 };
 
-export default skills;
+export default Skills;

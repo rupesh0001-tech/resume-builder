@@ -33,7 +33,7 @@ const ResumePreview = () => {
   data.project = projectData;
   data.skills = skillData;
 
-  console.log(data);
+  
  
   const {template, setTemplate} = useTemplate();
   const {accentColor, setAccentColor} = useAccentColor();
