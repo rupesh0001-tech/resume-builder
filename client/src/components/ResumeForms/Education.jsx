@@ -3,10 +3,17 @@ import FormInput from "../FormInput/FormInput";
 import SaveBtn from "./SaveBtn";
 import { useEducationInfo } from "../../Hooks/ResumeData/EducationInfo";
 import { useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useResumeId } from "../../Hooks/ResumeId/useResumeId";
+
 
 const Education = () => {
   const { educationData, setEducationData } = useEducationInfo();
+  const { currentResumeId } = useResumeId();
 
+  const id = currentResumeId;
   const [data, setData] = useState({
     degree: "",
     institution: "",
@@ -24,16 +31,39 @@ const Education = () => {
   };
 
   const handleAdd = () => {
-    setEducationData(prev => [...prev, { ...data }]);
+    setEducationData((prev) => [...prev, { ...data }]);
   };
 
-  const handleDel = () => {
-    setEducationData((prev) =>  [...prev.slice(0, prev.length - 2)] );
-    
-  }
+  const handleDel = (eduId) => {
+  
+    axios
+      .delete(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/education/${eduId}`,
+        { withCredentials: true }
+      )
+      .then(() => {
+        setEducationData((prev) => prev.filter((exp) => exp._id !== eduId));
+        console.log("deleted");
+        toast.success(" education deleted successfully ");
+      })
+      .catch((err) => console.log(err));
+    setEducationData((prev) => prev.filter((exp) => exp._id !== id));
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await axios
+      .post(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/education`,
+        { education: educationData },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        toast.success(" education updated successfully ");
+      })
+      .catch((err) => console.log(err));
+    setFormTab(3);
   };
 
   return (
@@ -132,7 +162,7 @@ const Education = () => {
 
               {/* DELETE BUTTON */}
               <button
-                onClick={() => handleDel()}
+                onClick={() => handleDel(edu._id)}
                 className="text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition-all hover:cursor-pointer"
               >
                 <i className="fa-solid fa-trash"></i>

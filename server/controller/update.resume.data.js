@@ -57,8 +57,7 @@ export const getMyResumes = async (req, res) => {
 // GET SINGLE RESUME
 // ------------------------------------------------------------
 export const getSingleResume = async (req, res) => {
-  console.log("user ", req.user);
-  console.log("body  ", req.body);
+  
   try {
     const resume = await Resume.findOne({
       _id: req.params.id,
@@ -210,6 +209,8 @@ export const deleteExperience = async (req, res) => {
       .status(500)
       .json({ message: "Error deleting experience", error: error.message });
   }
+
+  console.log
 };
 
 // ------------------------------------------------------------
@@ -217,9 +218,10 @@ export const deleteExperience = async (req, res) => {
 // ------------------------------------------------------------
 export const addEducation = async (req, res) => {
   try {
+    console.log(req.body);
     const resume = await Resume.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
-      { $push: { education: req.body } },
+      { _id: req.params.id, userId: req.user.id },
+      { $push: { education: req.body.education } },
       { new: true }
     );
 
@@ -260,7 +262,7 @@ export const deleteEducation = async (req, res) => {
     const { id, eduId } = req.params;
 
     const resume = await Resume.findOneAndUpdate(
-      { _id: id, userId: req.user._id },
+      { _id: id, userId: req.user.id },
       { $pull: { education: { _id: eduId } } },
       { new: true }
     );
