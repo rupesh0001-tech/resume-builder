@@ -10,7 +10,6 @@ import {
   updateSkills,
 
   addExperience,
-  updateExperience,
   deleteExperience,
 
   addEducation,
@@ -62,7 +61,7 @@ router.patch('/:id/skills', protect, updateSkills);
 // EXPERIENCE
 // ------------------------------------------------------------
 router.post('/:id/experience', protect, addExperience);
-router.patch('/:id/experience/:expId', protect, updateExperience);
+
 router.delete('/:id/experience/:expId', protect, deleteExperience);
 
 

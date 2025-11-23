@@ -6,20 +6,20 @@ import Resume from "../models/resume.model.js";
 export const createResume = async (req, res) => {
   try {
     const { title } = req.body;
-    console.log(req.user)
+    console.log(req.user);
 
     const resume = await Resume.create({
       userId: req.user.id,
       title,
       personal_info: {
-        full_name: 'Unknown',
+        full_name: "Unknown",
         email: "",
         phone: "",
         location: "",
         linkedin: "",
         website: "",
         profession: "",
-        image: '',
+        image: "",
       },
       skills: [],
       experience: [],
@@ -44,13 +44,12 @@ export const createResume = async (req, res) => {
 export const getMyResumes = async (req, res) => {
   try {
     const resumes = await Resume.find({ userId: req.user.id });
-    
+
     res.status(200).json(resumes);
   } catch (error) {
     res
       .status(500)
       .json({ message: "Error fetching resumes", error: error.message });
-    
   }
 };
 
@@ -58,8 +57,8 @@ export const getMyResumes = async (req, res) => {
 // GET SINGLE RESUME
 // ------------------------------------------------------------
 export const getSingleResume = async (req, res) => {
-  console.log('user ', req.user);
-  console.log('body  ', req.body);
+  console.log("user ", req.user);
+  console.log("body  ", req.body);
   try {
     const resume = await Resume.findOne({
       _id: req.params.id,
@@ -81,7 +80,6 @@ export const getSingleResume = async (req, res) => {
 // ------------------------------------------------------------
 export const deleteResume = async (req, res) => {
   try {
-    
     const resume = await Resume.findOneAndDelete({
       _id: req.params.id,
       userId: req.user.id,
@@ -102,13 +100,11 @@ export const deleteResume = async (req, res) => {
 // ------------------------------------------------------------
 export const updatePersonalInfo = async (req, res) => {
   try {
-     
     const resume = await Resume.findOneAndUpdate(
       { _id: req.params.id, userId: req.user.id },
       { personal_info: req.body },
-      {new : true }
+      { new: true }
     );
-    
 
     res
       .status(200)
@@ -168,10 +164,13 @@ export const updateSkills = async (req, res) => {
 // ADD EXPERIENCE
 // ------------------------------------------------------------
 export const addExperience = async (req, res) => {
+  
   try {
+    const { experience } = req.body; // <--- get array
+
     const resume = await Resume.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
-      { $push: { experience: req.body } },
+      { _id: req.params.id, userId: req.user.id },
+      { $push: { experience: { $each: experience } } }, // <--- push array items
       { new: true }
     );
 
@@ -180,35 +179,14 @@ export const addExperience = async (req, res) => {
       message: "Experience added successfully",
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error adding experience", error: error.message });
-  }
-};
-
-// ------------------------------------------------------------
-// UPDATE SPECIFIC EXPERIENCE
-// ------------------------------------------------------------
-export const updateExperience = async (req, res) => {
-  try {
-    const { id, expId } = req.params;
-
-    const resume = await Resume.findOneAndUpdate(
-      { _id: id, userId: req.user._id, "experience._id": expId },
-      { $set: { "experience.$": req.body } },
-      { new: true }
-    );
-
-    res.status(200).json({
-      resume,
-      message: "Experience updated successfully",
+    res.status(500).json({
+      message: "Error adding experience",
+      error: error.message,
     });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error updating experience", error: error.message });
   }
 };
+
+// ------------------------------------------------------------
 
 // ------------------------------------------------------------
 // DELETE EXPERIENCE
@@ -218,7 +196,7 @@ export const deleteExperience = async (req, res) => {
     const { id, expId } = req.params;
 
     const resume = await Resume.findOneAndUpdate(
-      { _id: id, userId: req.user._id },
+      { _id: id, userId: req.user.id },
       { $pull: { experience: { _id: expId } } },
       { new: true }
     );

@@ -15,8 +15,8 @@ const personalInfoSchema = new mongoose.Schema({
 const experienceSchema = new mongoose.Schema({
     company: String,
     position: String,
-    start_date: String,   // "2023-06"
-    end_date: String,     // "Present" or "2024-03"
+    startDate: String,   // "2023-06"
+    endDate: String,     // "Present" or "2024-03"
     description: String,
     is_current: Boolean
 });

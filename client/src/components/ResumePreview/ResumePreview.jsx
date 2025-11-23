@@ -27,10 +27,13 @@ const ResumePreview = () => {
 
   data.personal_info = personalInfoData;
   data.professional_summary = professionalSummaryData;
+  
   data.experience = experienceData;
   data.education = educationData;
   data.project = projectData;
   data.skills = skillData;
+
+  console.log(data);
  
   const {template, setTemplate} = useTemplate();
   const {accentColor, setAccentColor} = useAccentColor();

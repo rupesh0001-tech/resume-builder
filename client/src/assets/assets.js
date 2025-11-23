@@ -24,8 +24,8 @@ export const dummyResumeData = [
             {
                 company: "Example Technologies.",
                 position: "Senior Full Stack Developer",
-                start_date: "2023-06",
-                end_date: "Present",
+                startDate: "2023-06",
+                endDate: "Present",
                 description: "Architected, developed, and deployed innovative full-stack applications at Example Technologies.\ncreating robust back-end systems and intuitive front- end interfaces to deliver meaningful digital experiences ",
                 is_current: true,
                 _id: "68d2a31a1c4dd38875bb037f"

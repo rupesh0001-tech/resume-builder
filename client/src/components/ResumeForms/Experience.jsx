@@ -1,12 +1,14 @@
 import React, { useState, useContext } from "react";
 import FormInput from "../FormInput/FormInput";
 import { useExperience } from "../../Hooks/ResumeData/Experience";
-
-
+import { useResumeId } from "../../Hooks/ResumeId/useResumeId";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Experience = () => {
   const { experienceData, setExperienceData } = useExperience();
-
+  const { currentResumeId } = useResumeId();
+  const id = currentResumeId;
   const initData = {
     position: "",
     company: "",
@@ -33,15 +35,40 @@ const Experience = () => {
   };
 
   const handleAdd = () => {
+    
+    console.log(experienceData)
     setExperienceData((prev) => [...prev, { ...data }]);
   };
 
-  const handleDel = () => {
-    setExperienceData((prev) => [...prev.slice(0, prev.length - 2)]);
+  const handleDel = (_id) => {
+    axios
+      .delete(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/experience/${_id}`,
+        { withCredentials: true }
+      )
+      .then(() => {
+        setExperienceData((prev) => prev.filter((exp) => exp._id !== _id));
+        console.log("deleted");
+        toast.success(" experience deleted successfully ");
+      })
+      .catch((err) => console.log(err));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(experienceData);
+    await axios
+      .post(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/experience`,
+        { experience: experienceData },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        toast.success(" experience updated successfully ");
+      })
+      .catch((err) => console.log(err));
+    setFormTab(4);
   };
 
   return (
@@ -55,7 +82,6 @@ const Experience = () => {
 
       <form onSubmit={handleSubmit} className="flex flex-col ">
         <div className="flex flex-col gap-4">
-
           <FormInput
             name="position"
             label="Position"
@@ -139,7 +165,7 @@ const Experience = () => {
               </h3>
 
               <button
-                onClick={() => handleDel()}
+                onClick={() => handleDel(exp._id)}
                 className="text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition-all hover:cursor-pointer"
               >
                 <i className="fa-solid fa-trash"></i>
