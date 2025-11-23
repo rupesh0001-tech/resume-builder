@@ -218,7 +218,7 @@ export const deleteExperience = async (req, res) => {
 // ------------------------------------------------------------
 export const addEducation = async (req, res) => {
   try {
-    console.log(req.body);
+    
     const resume = await Resume.findOneAndUpdate(
       { _id: req.params.id, userId: req.user.id },
       { $push: { education: req.body.education } },
@@ -280,9 +280,10 @@ export const deleteEducation = async (req, res) => {
 // ------------------------------------------------------------
 export const addProject = async (req, res) => {
   try {
+    console.log(req.body.projects);
     const resume = await Resume.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
-      { $push: { project: req.body } },
+      { _id: req.params.id, userId: req.user.id },
+      { $push: { project: req.body.projects } },
       { new: true }
     );
 
@@ -323,7 +324,7 @@ export const deleteProject = async (req, res) => {
     const { id, projectId } = req.params;
 
     const resume = await Resume.findOneAndUpdate(
-      { _id: id, userId: req.user._id },
+      { _id: id, userId: req.user.id },
       { $pull: { project: { _id: projectId } } },
       { new: true }
     );

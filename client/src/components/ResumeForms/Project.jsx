@@ -2,14 +2,19 @@ import React from "react";
 import { useProjectInfo } from "../../Hooks/ResumeData/ProjectInfo";
 import FormInput from "../FormInput/FormInput";
 import SaveBtn from "./SaveBtn";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useResumeId } from "../../Hooks/ResumeId/useResumeId";
 
 const Project = () => {
+  const { currentResumeId } = useResumeId();
+  const id = currentResumeId;
   const { projectData, setProjectData } = useProjectInfo();
   const initData = {
     name: "",
     type: "",
     description: "",
-    _id: "",
   };
   const [data, setData] = React.useState(initData);
 
@@ -26,12 +31,34 @@ const Project = () => {
     console.log("Added:", projectData);
   };
 
-  const handleDel = () => {
-    setProjectData((prev) => [...prev.slice(0, prev.length - 2)]);
+  const handleDel = async (_id) => {
+    await axios
+      .delete(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/project/${_id}`,
+        { withCredentials: true }
+      )
+      .then((res) => {
+        setProjectData((prev) => prev.filter((exp) => exp._id !== _id));
+        console.log("deleted");
+        toast.success(" project deleted successfully ");
+      })
+      .catch((err) => console.log(err));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await axios
+      .post(
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/project`,
+        { projects: projectData },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res);
+        toast.success(" projects updated successfully ");
+        setFormTab(5);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -121,7 +148,7 @@ const Project = () => {
 
               {/* DELETE BUTTON */}
               <button
-                onClick={() => handleDel()}
+                onClick={() => handleDel(project._id)}
                 className="text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition-all hover:cursor-pointer"
               >
                 <i className="fa-solid fa-trash"></i>
@@ -134,12 +161,9 @@ const Project = () => {
                 {project.type}
               </p>
               <p>
-                <span className="font-medium text-gray-900">
-                  
-                </span>{" "}
+                <span className="font-medium text-gray-900"></span>{" "}
                 {project.description}
               </p>
-            
             </div>
           </div>
         ))}
