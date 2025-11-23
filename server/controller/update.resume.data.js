@@ -58,10 +58,12 @@ export const getMyResumes = async (req, res) => {
 // GET SINGLE RESUME
 // ------------------------------------------------------------
 export const getSingleResume = async (req, res) => {
+  console.log('user ', req.user);
+  console.log('body  ', req.body);
   try {
     const resume = await Resume.findOne({
       _id: req.params.id,
-      userId: req.user._id,
+      userId: req.user.id,
     });
 
     if (!resume) return res.status(404).json({ message: "Resume not found" });
@@ -79,9 +81,10 @@ export const getSingleResume = async (req, res) => {
 // ------------------------------------------------------------
 export const deleteResume = async (req, res) => {
   try {
+    
     const resume = await Resume.findOneAndDelete({
       _id: req.params.id,
-      userId: req.user._id,
+      userId: req.user.id,
     });
 
     if (!resume) return res.status(404).json({ message: "Resume not found" });

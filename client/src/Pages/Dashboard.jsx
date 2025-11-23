@@ -16,6 +16,9 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 
+
+
+
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const colors = [
@@ -42,18 +45,20 @@ const Dashboard = () => {
     setResumedata(
       res.data
     )
-    console.log(res.data);
+   
     
   };
 
   const handleFileChange = (e) => {
     setResume(e.target.files[0]); // store the first selected file
   };
+  
 
+  let newId;
   const createNewResume = async () => {
     console.log(`formData: ${formTitle}`);
     
-    const newId = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/resumes/`, {title : formTitle}, {
+    newId = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/resumes/`, {title : formTitle}, {
       withCredentials: true,
     });
     navigate(`/app/builder/${newId.data.resume._id}`);
@@ -67,6 +72,9 @@ const Dashboard = () => {
   };
 
   const deleteResume = (id) => {
+    let deletedResume = axios.delete(`${import.meta.env.VITE_BASE_URL}/api/resumes/${id}`, {
+      withCredentials: true
+    });
     setResumedata((prevData) => prevData.filter((resume) => resume._id !== id));
   };
 
