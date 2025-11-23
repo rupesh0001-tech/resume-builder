@@ -49,7 +49,7 @@ router.post('/:id/personal-info', protect, updatePersonalInfo);
 // ------------------------------------------------------------
 // PROFESSIONAL SUMMARY
 // ------------------------------------------------------------
-router.patch('/:id/professional-summary', protect, updateProfessionalSummary);
+router.post('/:id/professional-summary', protect, updateProfessionalSummary);
 
 
 // ------------------------------------------------------------

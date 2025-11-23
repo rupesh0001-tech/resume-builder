@@ -17,7 +17,7 @@ export const ResumeProvider = ({ children }) => {
 
   let [personalInfoData, setPersonalInfoData] = useState(initPersonalData);
   let [professionalSummaryData, setProfessionalSummaryData] = useState(
-    initProfessionalSummary
+    ''
   );
   let [experienceData, setExperienceData] = useState([]);
   let [educationData, setEducationData] = useState([]);

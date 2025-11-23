@@ -10,6 +10,7 @@ import { useExperience } from "../Hooks/ResumeData/Experience.jsx";
 import { useEducationInfo } from "../Hooks/ResumeData/EducationInfo.jsx";
 import { useProjectInfo } from "../Hooks/ResumeData/ProjectInfo.jsx";
 import { useSkillInfo } from "../Hooks/ResumeData/SkillInfo.jsx";
+
 import axios from "axios";
 
 const ResumeBuilder = () => {
@@ -25,19 +26,21 @@ const ResumeBuilder = () => {
   const loadResume = async () => {
     let resume = await axios.get(
       `${import.meta.env.VITE_BASE_URL}/api/resumes/${resumeId}`,
-      
+
       { withCredentials: true }
     );
-    resume = resume.data
+    resume = resume.data;
+    
     if (resume) {
       setPersonalInfoData(resume.personal_info);
       setProfessionalSummaryData(resume.professional_summary);
+      
       setExperienceData(resume.experience);
       setEducationData(resume.education);
       setProjectData(resume.project);
       setSkillData(resume.skills);
-
       document.title = resume.title;
+
     }
   };
 

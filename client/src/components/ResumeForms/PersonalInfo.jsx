@@ -8,12 +8,17 @@ import { usePersonalInfo } from "../../Hooks/ResumeData/PersonalInfo.jsx";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useResumeId } from '../../Hooks/ResumeId/useResumeId.jsx'
+import { useEffect } from "react";
 
-
-const PersonalInfo = ({setFormTab}) => {
+const PersonalInfo = ({ setFormTab }) => {
   const { personalInfoData, setPersonalInfoData } = usePersonalInfo();
+  const { currentResumeId, setCurrentResumeId } = useResumeId();
   let { resumeId } = useParams();
-  let id = resumeId;
+  useEffect(() => {
+    setCurrentResumeId(resumeId);
+  }, [resumeId]);
+  
 
   const handelChange = (e) => {
     setPersonalInfoData({
@@ -24,40 +29,40 @@ const PersonalInfo = ({setFormTab}) => {
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    axios
+    const res = axios
       .post(
         `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/personal-info`,
         personalInfoData,
         { withCredentials: true }
       )
-      .then((res) => {
-        toast.success(" personal info updated successfully "),
+      .then(() => {
+        console.log(res);
+        toast.success(" personal info updated successfully ");
         setFormTab(2);
-      } 
-    );
+      });
   };
 
   return (
-    <div className="flex flex-col  ">
-      <div className="flex flex-col mb-8 ">
+    <div className="flex flex-col">
+      <div className="flex flex-col mb-8">
         <h1 className="text-xl text-teal-950 font-semibold">
-          {" "}
           personal Information
         </h1>
         <p className="text-md text-gray-500 text-sm">
-          {" "}
-          Enter your personal information{" "}
+          Enter your personal information
         </p>
       </div>
 
-      {/* form Data  */}
+      {/* form Data */}
       <form onSubmit={handelSubmit}>
         <div className="formData flex flex-col gap-6">
+          
           <ProfileImageUploader />
+
           <FormInput
             name="full_name"
             label="Full Name"
-            icon={<i className="fa-solid fa-user  text-sm mr-1"></i>}
+            icon={<i className="fa-solid fa-user text-sm mr-1"></i>}
             value={personalInfoData.full_name}
             change={handelChange}
             type="text"
@@ -67,7 +72,7 @@ const PersonalInfo = ({setFormTab}) => {
           <FormInput
             name="email"
             label="Email"
-            icon={<i className=" fa-solid fa-envelope text-sm mr-1 "></i>}
+            icon={<i className="fa-solid fa-envelope text-sm mr-1"></i>}
             value={personalInfoData.email}
             change={handelChange}
             type="email"
@@ -77,7 +82,7 @@ const PersonalInfo = ({setFormTab}) => {
           <FormInput
             name="phone"
             label="Phone"
-            icon={<i className=" fa-solid fa-phone text-sm mr-1 "></i>}
+            icon={<i className="fa-solid fa-phone text-sm mr-1"></i>}
             value={personalInfoData.phone}
             change={handelChange}
             type="tel"
@@ -87,7 +92,7 @@ const PersonalInfo = ({setFormTab}) => {
           <FormInput
             name="location"
             label="Location"
-            icon={<i className=" fa-solid fa-location text-sm mr-1 "></i>}
+            icon={<i className="fa-solid fa-location text-sm mr-1"></i>}
             value={personalInfoData.location}
             change={handelChange}
             type="text"
@@ -98,7 +103,7 @@ const PersonalInfo = ({setFormTab}) => {
             name="linkedin"
             label="Linkedin"
             value={personalInfoData.linkedin}
-            icon={<i className=" fa-brands fa-linkedin text-sm mr-1"></i>}
+            icon={<i className="fa-brands fa-linkedin text-sm mr-1"></i>}
             change={handelChange}
             type="url"
             placeholder="Enter your linkedin url"
@@ -108,7 +113,7 @@ const PersonalInfo = ({setFormTab}) => {
             name="website"
             label="Website"
             value={personalInfoData.website}
-            icon={<i className=" fa-solid fa-globe text-sm mr-1  "></i>}
+            icon={<i className="fa-solid fa-globe text-sm mr-1"></i>}
             change={handelChange}
             type="url"
             placeholder="Enter your website url"
@@ -117,7 +122,7 @@ const PersonalInfo = ({setFormTab}) => {
           <FormInput
             name="profession"
             label="Profession"
-            icon={<i className=" fa-solid fa-briefcase text-sm mr-1 "></i>}
+            icon={<i className="fa-solid fa-briefcase text-sm mr-1"></i>}
             value={personalInfoData.profession}
             change={handelChange}
             type="text"
@@ -125,6 +130,7 @@ const PersonalInfo = ({setFormTab}) => {
           />
 
           <SaveBtn name="Save" />
+
         </div>
       </form>
     </div>

@@ -16,9 +16,6 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 
-
-
-
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const colors = [

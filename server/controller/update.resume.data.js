@@ -126,7 +126,7 @@ export const updatePersonalInfo = async (req, res) => {
 export const updateProfessionalSummary = async (req, res) => {
   try {
     const resume = await Resume.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
+      { _id: req.params.id, userId: req.user.id },
       { professional_summary: req.body.professional_summary },
       { new: true }
     );
