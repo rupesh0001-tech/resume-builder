@@ -30,7 +30,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      toast.success("login successeful ");
+      toast.success(`${state} successeful `);
       setUser(res.data.user);
       navigate("/");
     } catch (error) {

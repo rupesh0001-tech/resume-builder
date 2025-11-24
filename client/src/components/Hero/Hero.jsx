@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { getUserData } from "../../Hooks/UserData/UserData";
 
-const Hero = () => {
+const Hero = ({ onFeatureClick, onTestimonialClick, onContactClick }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, setUser, loading } = getUserData();
 
@@ -32,18 +32,26 @@ const Hero = () => {
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8 transition duration-500">
-          <a href="/" className="hover:text-slate-500 transition">
-            Home
-          </a>
-          <a href="#features" className="hover:text-slate-500 transition">
+          <button
+            onClick={onFeatureClick}
+            className="hover:text-slate-500 transition hover:cursor-pointer "
+          >
             Features
-          </a>
-          <a href="#testimonials" className="hover:text-slate-500 transition">
+          </button>
+
+          <button
+            onClick={onTestimonialClick}
+            className="hover:text-slate-500 transition hover:cursor-pointer "
+          >
             Testimonials
-          </a>
-          <a href="#contact" className="hover:text-slate-500 transition">
+          </button>
+
+          <button
+            onClick={onContactClick}
+            className="hover:text-slate-500 transition hover:cursor-pointer "
+          >
             Contact
-          </a>
+          </button>
         </div>
 
         {/* Login / Logout */}

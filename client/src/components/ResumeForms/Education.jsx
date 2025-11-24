@@ -35,7 +35,7 @@ const Education = () => {
   };
 
   const handleDel = (eduId) => {
-  
+    console.log(eduId);
     axios
       .delete(
         `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/education/${eduId}`,

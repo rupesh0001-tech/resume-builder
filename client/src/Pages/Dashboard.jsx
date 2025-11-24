@@ -97,13 +97,17 @@ const Dashboard = () => {
             <p className=" text-gray-600 text-sm">Make New Resume </p>
           </button>
 
-          <button
+
+
+          {/*   Work later on this part  */}
+
+          {/* <button
             onClick={() => setUploadResume(true)}
             className=" rounded-3xl  bg-[#f7eeee] h-46 w-38 mx-w-38  px-5 py-4 shadow cursor-pointer hover:shadow-xl   hover:border-2 border-dotted border-blue-500 ease-in-out transition-all duration-100  "
           >
             <i className=" text-3xl fa-solid fa-cloud-arrow-up "></i>
             <p className=" text-gray-600 text-sm"> Upload existing </p>
-          </button>
+          </button> */}
         </div>
 
         <hr className="mt-10 bg-amber-800 " />

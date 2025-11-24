@@ -43,8 +43,11 @@ export const registerUser = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
+    user.password = undefined;
+
     // send response
     res.status(201).json({
+      user,
       message: "User registered successfully",
     });
   } catch (error) {

@@ -66,7 +66,7 @@ const Skills = () => {
 
           <button
             type = "submit"
-            className="bg-teal-950 hover:bg-teal-800 text-white font-semibold flex justify-center items-center rounded h-8 py-5 px-4"
+            className="bg-teal-950 hover:bg-teal-800 text-white font-semibold flex justify-center items-center rounded h-8 py-5 px-4  hover: cursor-pointer transition duration-150"
             onClick={handleAdd}
           >
             Add
@@ -84,7 +84,7 @@ const Skills = () => {
 
             <button
               onClick={() => handleDel(skill)}
-              className="text-gray-600 hover:text-red-600 transition-all"
+              className="text-gray-600 hover:text-red-600 hover:cursor-pointer transition-all"
             >
               <i className="fa-solid fa-x text-[10px]"></i>
             </button>
