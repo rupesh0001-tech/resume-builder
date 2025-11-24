@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { getUserData } from "../../Hooks/UserData/UserData";
 
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, setUser, loading } = getUserData();
@@ -29,23 +30,25 @@ const Navbar = () => {
         <a href="/">
           <img src="/logo.svg" alt="Logo" className="h-10 w-auto" />
         </a>
-
         {/* Desktop Links */}
+        
         <div className="hidden md:flex items-center gap-8 transition duration-500">
-          <a href="/" className="hover:text-slate-500 transition">
+          <Link to="/" className="hover:text-slate-500 transition">
             Home
-          </a>
-          <a href="#features" className="hover:text-slate-500 transition">
-            Features
-          </a>
-          <a href="#testimonials" className="hover:text-slate-500 transition">
-            Testimonials
-          </a>
-          <a href="#contact" className="hover:text-slate-500 transition">
-            Contact
-          </a>
-        </div>
+          </Link>
 
+          <Link to="/#features" className="hover:text-slate-500 transition">
+            Features
+          </Link>
+
+          <Link to="/#testimonials" className="hover:text-slate-500 transition">
+            Testimonials
+          </Link>
+
+          <Link to="/#contact" className="hover:text-slate-500 transition">
+            Contact
+          </Link>
+        </div>
         {/* Login / Logout */}
         {user ? (
           <div className="hidden md:flex items-center gap-4">
@@ -77,7 +80,6 @@ const Navbar = () => {
             </Link>
           </div>
         )}
-
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(true)}

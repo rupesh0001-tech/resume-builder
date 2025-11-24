@@ -8,6 +8,7 @@ import ProtectedRoute from "./Routes/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 
 import Login from "./Pages/Login";
+import NotFound from "./Pages/notFound";
 
 const App = () => {
   return (
@@ -27,9 +28,11 @@ const App = () => {
         >
           <Route index element={ <ProtectedRoute> <Dashboard /></ProtectedRoute>} />
           <Route path="builder/:resumeId" element={<ResumeBuilder />} />
+          
         </Route>
 
         <Route path="login" element={<Login />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </>
   );
