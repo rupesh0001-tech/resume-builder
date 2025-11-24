@@ -113,25 +113,25 @@ const Hero = ({ onFeatureClick, onTestimonialClick, onContactClick }) => {
         }`}
       >
         <button
-            onClick={onFeatureClick}
-            className="hover:text-slate-500 transition hover:cursor-pointer "
-          >
-            Features
-          </button>
+          onClick={onFeatureClick}
+          className="hover:text-slate-500 transition hover:cursor-pointer "
+        >
+          Features
+        </button>
 
-          <button
-            onClick={onTestimonialClick}
-            className="hover:text-slate-500 transition hover:cursor-pointer "
-          >
-            Testimonials
-          </button>
+        <button
+          onClick={onTestimonialClick}
+          className="hover:text-slate-500 transition hover:cursor-pointer "
+        >
+          Testimonials
+        </button>
 
-          <button
-            onClick={onContactClick}
-            className="hover:text-slate-500 transition hover:cursor-pointer "
-          >
-            Contact
-          </button>
+        <button
+          onClick={onContactClick}
+          className="hover:text-slate-500 transition hover:cursor-pointer "
+        >
+          Contact
+        </button>
 
         <button
           onClick={() => setMenuOpen(false)}
@@ -180,12 +180,22 @@ const Hero = ({ onFeatureClick, onTestimonialClick, onContactClick }) => {
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-4 mt-8">
-          <Link
-            to="/app"
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 rounded-lg px-7 h-11"
-          >
-            Get started →
-          </Link>
+          {user ? (
+            <Link
+              to="/app"
+              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 rounded-lg px-7 h-11"
+            >
+              Create Resume →
+            </Link>
+          ) : (
+            <Link
+              to="/app"
+              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 rounded-lg px-7 h-11"
+            >
+              Get started →
+              
+            </Link>
+          )}
 
           {user ? (
             <></>

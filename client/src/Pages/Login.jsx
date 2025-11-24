@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import { AuthContext } from "../Context/AuthProvider";
 
+
 const Login = () => {
   const { setUser } = React.useContext(AuthContext);
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      
+
       let res = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/auth/users/${state}`,
         formData,
@@ -46,7 +47,19 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center min-h-screen justify-center bg-gray-50 ">
+    <div className="flex flex-col gap-4 items-center min-h-screen justify-center bg-gray-50 ">
+      <h3 type="button " className=" text-blue-700 cursor-pointer "
+        onClick={() =>
+            setState((prev) => (prev === "login" ? "register" : "login"))
+          }
+      >
+        {" "}
+        {
+          state === "login"
+            ? "Don't have an account? click here to  Register"
+            : "Already have an account? click here to  Login"
+        }
+      </h3>
       <Toaster />
       <form
         onSubmit={handleSubmit}

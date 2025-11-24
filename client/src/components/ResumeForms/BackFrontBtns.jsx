@@ -12,7 +12,7 @@ const BackFrontBtns = ({ setFormTab, formTab }) => {
   };
 
   return (
-    <div className="flex gap-4  w-full justify-end">
+    <div className="flex gap-4  w-full justify-start">
       {formTab !== 1 && (
         <p
           className=" opacity-60 cursor-pointer hover:opacity-100 "

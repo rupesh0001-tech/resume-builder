@@ -215,7 +215,7 @@ const Dashboard = () => {
                 onClick={() => {
                   
                 }}
-                className=" bg-amber-300 py-1 px-2 w-40 border border-blue-950 cursor-pointer"
+                className=" bg-blue-800 text-white hover:bg-blue-950 py-1 px-2 w-40 border border-blue-950 cursor-pointer"
               >
                 Create Resume
               </button>
@@ -329,7 +329,7 @@ const Dashboard = () => {
                 onClick={() => {
                   setFormTitle("");
                 }}
-                className=" bg-amber-300 py-1 px-2 w-40 border border-blue-950 cursor-pointer"
+                className=" bg-blue-800-300 py-1 px-2 w-40 border border-blue-950 cursor-pointer"
               >
                 Create Resume
               </button>

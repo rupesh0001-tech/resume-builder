@@ -50,12 +50,12 @@ const ResumeForm = () => {
     <div className="resume-form-wrapper w-[95%] max-w-[500px] mx-auto sm:w-auto">
 
       <div className="flex justify-between items-center w-full  ">
-        
+        <BackFrontBtns setFormTab={setFormTab} formTab={formTab} />
         <div className="flex justify-between gap-4">
           <ThemeSelector />
           <AccentColorSelector />
         </div>
-        <BackFrontBtns setFormTab={setFormTab} formTab={formTab} />
+        
       </div>
 
       <hr className="my-4 text-gray-500" />
