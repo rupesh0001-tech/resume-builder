@@ -17,6 +17,7 @@ const PersonalInfo = ({ setFormTab }) => {
   let { resumeId } = useParams();
   useEffect(() => {
     setCurrentResumeId(resumeId);
+  
   }, [resumeId]);
   
 
@@ -31,7 +32,7 @@ const PersonalInfo = ({ setFormTab }) => {
     e.preventDefault();
     const res = axios
       .post(
-        `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/personal-info`,
+        `${import.meta.env.VITE_BASE_URL}/api/resumes/${currentResumeId}/personal-info`,
         personalInfoData,
         { withCredentials: true }
       )

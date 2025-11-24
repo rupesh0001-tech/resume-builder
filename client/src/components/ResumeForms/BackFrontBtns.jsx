@@ -4,7 +4,7 @@ import { Form } from "react-router-dom";
 const BackFrontBtns = ({ setFormTab, formTab }) => {
   const handelNext = () => {
     setFormTab(formTab + 1);
-    console.log("ageee badhoooooo");
+    
   };
 
   const handelBack = () => {

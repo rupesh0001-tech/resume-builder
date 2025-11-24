@@ -206,7 +206,7 @@ export const addExperience = async (req, res) => {
 
     const resume = await Resume.findOneAndUpdate(
       { _id: req.params.id, userId: req.user.id },
-      { $push: { experience: { $each: experience } } }, // <--- push array items
+      { $set: { experience: req.body.experience } }, // <--- push array items
       { new: true }
     );
 
@@ -256,18 +256,23 @@ export const deleteExperience = async (req, res) => {
 export const addEducation = async (req, res) => {
   try {
     const resume = await Resume.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user.id },
-      { $push: { education: req.body.education } },
-      { new: true }
+      { _id: req.params.id, userId: req.user.id },   // find same resume
+      { $set: req.body },                            // update with whole req.body
+      { new: true }                                   // return updated doc
     );
 
-    res.status(200).json({ resume, message: "Education added successfully" });
+    res.status(200).json({
+      resume,
+      message: "Resume updated successfully"
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error adding education", error: error.message });
+    res.status(500).json({
+      message: "Error updating education",
+      error: error.message
+    });
   }
 };
+
 
 // ------------------------------------------------------------
 // UPDATE EDUCATION
@@ -319,7 +324,7 @@ export const addProject = async (req, res) => {
     console.log(req.body.projects);
     const resume = await Resume.findOneAndUpdate(
       { _id: req.params.id, userId: req.user.id },
-      { $push: { project: req.body.projects } },
+      { $set : { project: req.body.projects } },
       { new: true }
     );
 

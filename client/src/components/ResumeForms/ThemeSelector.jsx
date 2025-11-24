@@ -23,7 +23,7 @@ const ThemeSelector = () => {
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=50&h=50&auto=format&fit=crop",
     },
     {
-        name : 'Minimal Image',
+        name : 'Mini',
         template : 'minimal-image',
         image : 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60'
     }
@@ -40,11 +40,11 @@ const ThemeSelector = () => {
   };
 
   return (
-    <div className="flex flex-col w-15 text-sm relative py-2 cursor-pointer ">
+    <div className="flex flex-col w-20 text-sm relative py-2 cursor-pointer ">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="group flex items-center justify-between w-18 text-left px-2.5 py-2.5 border rounded bg-white text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none "
+        className="group flex items-center justify-between w-full text-left px-2.5 py-2.5 border rounded bg-white text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none "
       >
         <div className="flex items-center gap-2">
           <span>{selectedTemplate.name}</span>

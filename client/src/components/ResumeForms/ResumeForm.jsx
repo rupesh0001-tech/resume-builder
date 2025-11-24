@@ -22,22 +22,22 @@ const ResumeForm = () => {
     {
       id: 2,
       title: "Professional Summary",
-      component: <ProfessionalSummary />,
+      component: <ProfessionalSummary setFormTab={setFormTab} />,
     },
     {
       id: 3,
       title: "Experience",
-      component: <Experience />,
+      component: <Experience setFormTab={setFormTab} />,
     },
     {
       id: 4,
       title: "Education",
-      component: <Education />,
+      component: <Education setFormTab={setFormTab} />,
     },
     {
       id: 5,
       title: "Project",
-      component: <Project />,
+      component: <Project setFormTab={setFormTab} />,
     },
     {
       id: 6,

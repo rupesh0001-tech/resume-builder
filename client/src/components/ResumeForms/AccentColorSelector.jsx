@@ -27,7 +27,7 @@ const AccentColorSelector = () => {
   };
 
   return (
-    <div className="flex flex-col w-20 text-sm relative py-2 cursor-pointer">
+    <div className="flex flex-col w-25 text-sm relative py-2 cursor-pointer">
       
       {/* Trigger Button */}
       <button

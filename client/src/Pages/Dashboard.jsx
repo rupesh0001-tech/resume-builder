@@ -53,7 +53,6 @@ const Dashboard = () => {
 
   let newId;
   const createNewResume = async () => {
-    console.log(`formData: ${formTitle}`);
     
     newId = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/resumes/`, {title : formTitle}, {
       withCredentials: true,
@@ -131,8 +130,8 @@ const Dashboard = () => {
                   <i className="fa-solid fa-user-tie text-white text-5xl"> </i>
                   <h1 className=" text-sm text-amber-200 text-center">
                     {" "}
-                    {resume.personal_info.full_name}'s{" "}
-                    <span className=" text-amber-50">Resume </span>{" "}
+                    {resume.title} {" "}
+                    <span className=" text-amber-50">  </span>{" "}
                   </h1>
                   <p className=" text-[8px] text-white ">
                     {" "}
