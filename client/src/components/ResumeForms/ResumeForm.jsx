@@ -47,7 +47,8 @@ const ResumeForm = () => {
   ];
 
   return (
-    <div className="resume-form-wrapper">
+    <div className="resume-form-wrapper w-[95%] max-w-[500px] mx-auto sm:w-auto">
+
       <div className="flex justify-between items-center w-full  ">
         
         <div className="flex justify-between gap-4">

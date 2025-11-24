@@ -191,7 +191,7 @@ const Dashboard = () => {
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center "
+              className=" absolute gap-3   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-amber-50 h-60 w-90 md:w-120 px-10 py-10 flex flex-col border-dashed border-blue-400 border-2  justify-center "
             >
               <h1 className="text-xl font-bold ">Create a Resume </h1>
               <i
