@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { getUserData } from "../../Hooks/UserData/UserData";
+import toast from "react-hot-toast";
 
 
 const Navbar = () => {
@@ -19,8 +20,10 @@ const Navbar = () => {
         { withCredentials: true }
       );
       setUser(null);
+      toast.success("Logout successful");
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
