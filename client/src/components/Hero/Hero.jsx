@@ -71,7 +71,7 @@ const Hero = ({ onFeatureClick, onTestimonialClick, onContactClick }) => {
         ) : (
           <div className="hidden md:block space-x-3">
             <Link
-              to="/register"
+              to="/Login"
               className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-md"
             >
               Get started
@@ -112,10 +112,26 @@ const Hero = ({ onFeatureClick, onTestimonialClick, onContactClick }) => {
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <a href="/">Home</a>
-        <a href="#features">Features</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#contact">Contact</a>
+        <button
+            onClick={onFeatureClick}
+            className="hover:text-slate-500 transition hover:cursor-pointer "
+          >
+            Features
+          </button>
+
+          <button
+            onClick={onTestimonialClick}
+            className="hover:text-slate-500 transition hover:cursor-pointer "
+          >
+            Testimonials
+          </button>
+
+          <button
+            onClick={onContactClick}
+            className="hover:text-slate-500 transition hover:cursor-pointer "
+          >
+            Contact
+          </button>
 
         <button
           onClick={() => setMenuOpen(false)}

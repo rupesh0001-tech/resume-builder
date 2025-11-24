@@ -5,7 +5,6 @@ import { useState } from "react";
 import { getUserData } from "../../Hooks/UserData/UserData";
 import toast from "react-hot-toast";
 
-
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, setUser, loading } = getUserData();
@@ -34,21 +33,21 @@ const Navbar = () => {
           <img src="/logo.svg" alt="Logo" className="h-10 w-auto" />
         </a>
         {/* Desktop Links */}
-        
+
         <div className="hidden md:flex items-center gap-8 transition duration-500">
           <Link to="/" className="hover:text-slate-500 transition">
             Home
           </Link>
 
-          <Link to="/#features" className="hover:text-slate-500 transition">
+          <Link to="/" className="hover:text-slate-500 transition">
             Features
           </Link>
 
-          <Link to="/#testimonials" className="hover:text-slate-500 transition">
+          <Link to="/" className="hover:text-slate-500 transition">
             Testimonials
           </Link>
 
-          <Link to="/#contact" className="hover:text-slate-500 transition">
+          <Link to="/" className="hover:text-slate-500 transition">
             Contact
           </Link>
         </div>
@@ -69,7 +68,7 @@ const Navbar = () => {
         ) : (
           <div className="hidden md:block space-x-3">
             <Link
-              to="/register"
+              to="/login"
               className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-md"
             >
               Get started
@@ -109,10 +108,33 @@ const Navbar = () => {
           menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <a href="/">Home</a>
-        <a href="#features">Features</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#contact">Contact</a>
+        <Link
+          to="/"
+          className="hover:bg-slate-100 transition px-6 py-2 border border-indigo-600 rounded-md"
+        >
+          Home
+        </Link>
+
+        <Link
+          to="/"
+          className="hover:bg-slate-100 transition px-6 py-2 border border-transparent rounded-md"
+        >
+          Features
+        </Link>
+
+        <Link
+          to="/"
+          className="hover:bg-slate-100 transition px-6 py-2 border border-transparent rounded-md"
+        >
+          Testimonials
+        </Link>
+
+        <Link
+          to="/"
+          className="hover:bg-slate-100 transition px-6 py-2 border border-transparent rounded-md"
+        >
+          Contact
+        </Link>
 
         <button
           onClick={() => setMenuOpen(false)}
