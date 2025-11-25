@@ -54,7 +54,7 @@ const Project = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
+        setProjectData(res.data.resume.project);
         toast.success(" projects updated successfully ");
         setFormTab(5);
       })

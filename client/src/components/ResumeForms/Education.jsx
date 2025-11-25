@@ -7,9 +7,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useResumeId } from "../../Hooks/ResumeId/useResumeId";
+import { v4 as uuid } from "uuid";
 
 
-const Education = () => {
+const Education = ({setFormTab}) => {
   const { educationData, setEducationData } = useEducationInfo();
   const { currentResumeId } = useResumeId();
 
@@ -35,7 +36,11 @@ const Education = () => {
   };
 
   const handleDel = (eduId) => {
-    console.log(eduId);
+    if (!eduId) {
+      toast.error("Please save before deleting");
+      return;
+    }
+
     axios
       .delete(
         `${import.meta.env.VITE_BASE_URL}/api/resumes/${id}/education/${eduId}`,
@@ -43,11 +48,9 @@ const Education = () => {
       )
       .then(() => {
         setEducationData((prev) => prev.filter((exp) => exp._id !== eduId));
-        console.log("deleted");
-        toast.success(" education deleted successfully ");
+        toast.success("Education deleted successfully");
       })
       .catch((err) => console.log(err));
-    setEducationData((prev) => prev.filter((exp) => exp._id !== id));
   };
 
   const handleSubmit = async (e) => {
@@ -59,11 +62,10 @@ const Education = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
+        setEducationData(res.data.resume.education); //res.data.resume.education
         toast.success(" education updated successfully ");
       })
       .catch((err) => console.log(err));
-    setFormTab(3);
   };
 
   return (
@@ -129,6 +131,7 @@ const Education = () => {
 
           <div className="flex gap-4">
             <button
+              type="button"
               className="px-4 py-2 bg-indigo-400 rounded-lg hover:bg-indigo-500 active:scale-95 transition-all text-white hover:cursor-pointer"
               onClick={(e) => {
                 handleAdd();

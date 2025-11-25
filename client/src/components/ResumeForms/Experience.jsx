@@ -5,7 +5,7 @@ import { useResumeId } from "../../Hooks/ResumeId/useResumeId";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const Experience = () => {
+const Experience = ({setFormTab}) => {
   const { experienceData, setExperienceData } = useExperience();
   const { currentResumeId } = useResumeId();
   const id = currentResumeId;
@@ -64,11 +64,12 @@ const Experience = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
+        setExperienceData(res.data.resume.experience);
+        // setexpData(res.data.resume.education);
         toast.success(" experience updated successfully ");
       })
       .catch((err) => console.log(err));
-    setFormTab(4);
+      
   };
 
   return (
