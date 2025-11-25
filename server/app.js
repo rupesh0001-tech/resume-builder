@@ -21,7 +21,7 @@ ConnectDB();
 // inBuild middlewares
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://resume-builder-delta-black-55.vercel.app',
     credentials: true
 })); 
 app.use(cookieParser());

@@ -4,4 +4,10 @@
 
 *{
   font-family: "Outfit", sans-serif;
+  
+}
+
+
+#react-hot-toast {
+  z-index: 999999 !important;
 }

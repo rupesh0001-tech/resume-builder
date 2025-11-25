@@ -44,7 +44,7 @@ const professionalSummary = ({ setFormTab }) => {
     const toastId = toast.loading("Enhancing text...");
     setLoading(true);
     const prompt = {
-      prompt: ` Improve this professional summary. Fix grammar and spelling. Output 20–40 words only. Keep it concise and polished, text is ${professionalSummaryData}  `,
+      prompt: ` Improve this professional summary. Fix grammar and spelling. Output 20–40 words only. Keep it concise and polished and give only 1 output the enchanced text no extra stuff, text is ${professionalSummaryData}  `,
     };
 
     await axios
@@ -68,7 +68,7 @@ const professionalSummary = ({ setFormTab }) => {
   return (
     <div className="flex flex-col  ">
       {loading && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 pointer-events-auto"></div>
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 pointer-events-auto"></div>
       )}
       <div className="flex flex-col mb-8 ">
         <h1 className="text-xl text-teal-950 font-semibold">

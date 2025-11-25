@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+
 
 import { AuthContext } from "../Context/AuthProvider";
 
@@ -60,7 +61,7 @@ const Login = () => {
             : "Already have an account? click here to  Login"
         }
       </h3>
-      <Toaster />
+  
       <form
         onSubmit={handleSubmit}
         className="sm:w-[350px] w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white"
