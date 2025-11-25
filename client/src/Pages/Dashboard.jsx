@@ -13,7 +13,7 @@ import { useEducationInfo } from "../Hooks/ResumeData/EducationInfo.jsx";
 import { useProjectInfo } from "../Hooks/ResumeData/ProjectInfo.jsx";
 import { useSkillInfo } from "../Hooks/ResumeData/SkillInfo.jsx";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 
 const Dashboard = () => {
@@ -82,7 +82,7 @@ const Dashboard = () => {
 
   return (
     <>
-    <Toaster />
+    
       <div className="dashboard px-30 py-5 duration-150 ease-in-out  ">
         <Title
           title={`Hello, ${user.name}`}

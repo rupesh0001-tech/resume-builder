@@ -39,7 +39,7 @@ const Project = () => {
       )
       .then((res) => {
         setProjectData((prev) => prev.filter((exp) => exp._id !== _id));
-        console.log("deleted");
+        
         toast.success(" project deleted successfully ");
       })
       .catch((err) => console.log(err));
@@ -55,10 +55,10 @@ const Project = () => {
       )
       .then((res) => {
         setProjectData(res.data.resume.project);
-        toast.success(" projects updated successfully ");
         setFormTab(5);
+        toast.success(" projects updated successfully ");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error("something went wrong"));
   };
 
   return (

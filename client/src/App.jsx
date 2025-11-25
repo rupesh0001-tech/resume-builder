@@ -13,7 +13,7 @@ import NotFound from "./Pages/notFound";
 const App = () => {
   return (
     <>
-    <Toaster />
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
 
