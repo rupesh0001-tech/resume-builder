@@ -1,43 +1,35 @@
 import jwt from "jsonwebtoken";
 
-
-
 const protect = (req, res, next) => {
   try {
-    // check if the token is in the cookie
-    let token = req.cookies.token;
+    // FIX 1: In Render + Vercel, cookies only work when cookie-parser is added
+    // Make sure: app.use(cookieParser());
 
-    // if token is not in the cookie
+    const token = req.cookies.token; // GOOD
+
+    // if no token found
     if (!token) {
-      return res.status(401).json({
-        message: "You are not logged in",
-      });
+      return res.status(401).json({ message: "You are not logged in" });
     }
 
-    // check if the token is valid
-    const isAuth = jwt.verify(token, process.env.JWT_SECRET);
+    // verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // if token is not valid
-    if (!isAuth) {
-      return res.json({
-        message: "Somthing went wrong please login again",
-      });
-    }
+    // FIX 2: isAuth is NOT a boolean — jwt.verify returns the payload
+    // OLD (wrong):
+    // const isAuth = jwt.verify(...)
 
+    // FIX: decoded is your payload
+    req.user = decoded;  // contains { id: "userId", iat: ... }
 
-    // take out the user from the token
-    req.user = isAuth;
-    
-
-    // if valid next 
     next();
+
   } catch (error) {
-    res.status(401).json({
-      message: "Somthing went wrong",
+    return res.status(401).json({
+      message: "Invalid or expired token",
       error: error.message,
     });
   }
 };
 
-
-export default protect
+export default protect;
